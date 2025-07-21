@@ -1,0 +1,7 @@
+{
+  "name": "veromoneyApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
