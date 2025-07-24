@@ -1,0 +1,20 @@
+<ion-menu menuId="main-menu" contentId="main-content" side="start">
+  <ion-header class="custom-header">
+    <ion-toolbar color="primary" class="custom-header">
+      <ion-title>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item (click)="navigateAndCloseMenu('/home')">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        Dashboard
+      </ion-item>
+      <ion-item (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
