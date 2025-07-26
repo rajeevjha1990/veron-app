@@ -21,7 +21,14 @@ export class LoginPage implements OnInit {
     email: '',
     password: ''
   };
-
+  loginMode: string = 'password';
+  otpSent: boolean = false;
+  otpData = {
+    mobile: '',
+    otp: ''
+  };
+  timer: number = 0;
+  otpTimer: any
   constructor(
     private userServ: UserService,
     private router: Router,
@@ -40,15 +47,6 @@ export class LoginPage implements OnInit {
       await this.showAlert('Password is required.');
       return;
     }
-    // const password = this.formData.password;
-    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{6,}$/;
-
-    // if (!passwordRegex.test(password)) {
-    //   await this.showAlert(
-    //     'Password must be at least 6 characters long and include uppercase, lowercase, number, and special character.'
-    //   );
-    //   return;
-    // }
 
     const resp = await this.userServ.login(this.formData);
     if (resp && resp.authkey) {
@@ -66,4 +64,41 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
+
+  async sendOtp() {
+    const resp = await this.userServ.sendotp(this.otpData);
+    if (resp && resp.otp_expires_at) {
+      this.otpSent = true;
+      const expiryTime = new Date(resp.otp_expires_at).getTime();
+      const now = Date.now();
+      const timeLeft = Math.floor((expiryTime - now) / 1000);
+      this.timer = Math.max(timeLeft, 0);
+
+
+      this.timer = timeLeft > 0 ? timeLeft : 0;
+
+      if (this.otpTimer) clearInterval(this.otpTimer);
+
+      this.otpTimer = setInterval(() => {
+        if (this.timer > 0) {
+          this.timer--;
+        } else {
+          clearInterval(this.otpTimer);
+          this.otpSent = false;
+        }
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        this.router.navigate(['/signup']);
+      }, 2000);
+
+    }
+  }
+  async verifyOtp() {
+    const resp = await this.userServ.verifyotp(this.otpData);
+    if (resp && resp.authkey) {
+      this.router.navigate(['/home']);
+    }
+  }
+
 }

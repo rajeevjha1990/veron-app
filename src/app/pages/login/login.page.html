@@ -3,36 +3,67 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>
-        <div class="logo">
+        <div class="logo ion-text-center">
           <img src="assets/logo.png" alt="Company Logo" />
         </div>
-        <ion-label style="text-align: center;">
-          <h2 style="font-size: 2rem;">Login</h2>
-        </ion-label>
+        <h2 class="ion-text-center" style="font-size: 2rem;">Login</h2>
       </ion-card-title>
     </ion-card-header>
+
     <ion-card-content>
-      <ion-list lines="none">
-        <ion-item class="ion-margin-bottom">
-          <ion-input [(ngModel)]="formData.email" fill="outline" placeholder="Email" type="email" required></ion-input>
+      <!-- Toggle Buttons -->
+      <div class="login-toggle">
+        <ion-buttons>
+          <ion-button [color]="loginMode === 'password' ? 'primary' : 'medium'" fill="outline" shape="round"
+            (click)="loginMode = 'password'">
+            Password Login
+          </ion-button>
+          <ion-button [color]="loginMode === 'otp' ? 'primary' : 'medium'" fill="outline" shape="round"
+            (click)="loginMode = 'otp'">
+            OTP Login
+          </ion-button>
+        </ion-buttons>
+      </div>
+
+
+      <div *ngIf="loginMode === 'password'">
+        <ion-item class="ion-margin-top">
+          <ion-input [(ngModel)]="formData.email" placeholder="Email" type="email" required></ion-input>
         </ion-item>
         <ion-item class="ion-margin-bottom">
-          <ion-input [(ngModel)]="formData.password" fill="outline" placeholder="Password" type="password"
-            required></ion-input>
+          <ion-input [(ngModel)]="formData.password" placeholder="Password" type="password" required></ion-input>
         </ion-item>
-      </ion-list>
-      <ion-button expand="block" type="submit" (click)="loginClick()">
-        Login
-      </ion-button>
-      <ion-grid>
+        <ion-button expand="block" (click)="loginClick()">Login</ion-button>
+      </div>
+
+      <div *ngIf="loginMode === 'otp'" class="ion-margin-top">
+        <ion-item>
+          <ion-input [(ngModel)]="otpData.mobile" placeholder="Mobile Number" type="tel"></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="sendOtp()" *ngIf="!otpSent">Send OTP</ion-button>
+
+        <div *ngIf="otpSent">
+          <ion-input-otp [length]="4" [(ngModel)]="otpData.otp"></ion-input-otp>
+          <p class="ion-text-center ion-margin-top" *ngIf="timer <= 0">
+            OTP sent to {{ otpData.mobile }}. Please enter the OTP.
+          <p class="ion-text-center ion-margin-top" *ngIf="timer > 0">
+            OTP expires in: {{ timer }} seconds
+          </p>
+
+          <ion-button expand="block" (click)="verifyOtp()">Verify OTP</ion-button>
+        </div>
+
+      </div>
+
+      <ion-grid class="ion-margin-top">
         <ion-row>
           <ion-col size="6">
-            <ion-button fill="clear" expand="block" type="submit" routerLink="/signup">
+            <ion-button fill="clear" expand="block" routerLink="/signup">
               Sign Up
             </ion-button>
           </ion-col>
           <ion-col size="6">
-            <ion-button fill="clear" expand="block" type="submit">
+            <ion-button fill="clear" expand="block">
               Forgot
             </ion-button>
           </ion-col>

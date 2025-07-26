@@ -9,3 +9,19 @@
     width: 150px;
     height: auto;
 }
+
+.login-toggle {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+
+    ion-buttons {
+        gap: 10px;
+    }
+
+    ion-button {
+        --border-radius: 20px;
+        --padding-start: 16px;
+        --padding-end: 16px;
+    }
+}

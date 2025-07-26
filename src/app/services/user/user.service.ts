@@ -55,7 +55,28 @@ export class UserService {
       throw error;
     }
   }
+  async sendotp(data: { mobile: string }) {
+    const url = Constants.USER_API_PATH + 'send_otp';
+    const respData = await this.veronHttp.post(url, data);
+    return respData;
+  }
+  async verifyotp(data: { mobile: string, otp: string }) {
+    try {
 
+      const url = Constants.USER_API_PATH + 'verify_otp';
+      const apiResp = await this.veronHttp.post(url, data);
+      if (apiResp && apiResp.authkey) {
+        this.authkey = apiResp.authkey;
+        this.veronHttp.authkey = this.authkey;
+        this.authServ.setAuthkey(this.authkey);
+        await this.getUserProfile();
+      }
+      return apiResp;
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
+  }
   async logout() {
     this.authServ.clear();
     this.userObj = new User();
