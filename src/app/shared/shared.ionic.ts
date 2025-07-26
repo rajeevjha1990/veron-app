@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
     IonButton,
@@ -33,7 +33,12 @@ import {
     IonFabList,
     IonItemGroup,
     IonCheckbox,
-    IonNote
+    IonNote,
+    IonRadioGroup,
+    IonRadio,
+    IonSegment,
+    IonSegmentButton,
+    IonFooter
 } from '@ionic/angular/standalone';
 
 export const SHARED_IONIC_MODULES = [
@@ -71,5 +76,11 @@ export const SHARED_IONIC_MODULES = [
     IonFabList,
     IonItemGroup,
     IonCheckbox,
-    IonNote
+    IonNote,
+    IonRadioGroup,
+    IonRadio,
+    FormsModule,
+    IonSegment,
+    IonSegmentButton,
+    IonFooter,
 ];

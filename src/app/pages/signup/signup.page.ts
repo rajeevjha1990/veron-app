@@ -15,6 +15,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class SignupPage implements OnInit {
   formData: any = {}
+  agreedToTerms: boolean = false;
   constructor(
     private userServ: UserService,
     private navCtrl: NavController,

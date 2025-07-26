@@ -17,7 +17,7 @@ export class UserService {
 
   constructor(
     private authServ: AuthService,
-    private dibcHttp: RajeevhttpService
+    private veronHttp: RajeevhttpService,
   ) {
     this.init();
   }
@@ -41,10 +41,10 @@ export class UserService {
   async login(logindata: any) {
     try {
       const url = Constants.USER_API_PATH + 'login';
-      const apiResp = await this.dibcHttp.post(url, logindata);
+      const apiResp = await this.veronHttp.post(url, logindata);
       if (apiResp && apiResp.authkey) {
         this.authkey = apiResp.authkey;
-        this.dibcHttp.authkey = this.authkey;
+        this.veronHttp.authkey = this.authkey;
         this.authServ.setAuthkey(this.authkey);
         await this.getUserProfile();
       }
@@ -70,9 +70,9 @@ export class UserService {
   }
 
   async getUserProfileFromServer() {
-    const url = Constants.USER_API_PATH + 'get_user';
+    const url = Constants.USER_API_PATH + 'get_consumer';
     try {
-      const respData = await this.dibcHttp.post(url, {}, false);
+      const respData = await this.veronHttp.post(url, {}, false);
 
       if (respData && respData.id) {
         this.userObj = {
@@ -80,7 +80,15 @@ export class UserService {
           consumer_name: respData.consumer_name,
           email: respData.email,
           mobile_no: respData.mobile_no,
-          loggedIn: true
+          loggedIn: true,
+          dob: respData.dob || '',
+          gender: respData.gender || '',
+          address: respData.address || '',
+          city: respData.city || '',
+          state: respData.state || '',
+          aadhaar_no: respData.aadhaar_no || '',
+          pancard: respData.pancard || '',
+          pincode: respData.pincode || ''
         } as any;
 
         this.user.next(this.userObj);
@@ -94,21 +102,14 @@ export class UserService {
       return this.userObj;
     }
   }
-
-
-  async updateUserProfile(userdata: any) {
-    const url = Constants.USER_API_PATH + 'update_profile';
-    return await this.dibcHttp.post(url, userdata);
-  }
-
   async consumerRegistration(userdata: any) {
-    const url = Constants.USER_API_PATH + 'register';
-    const apiResp = await this.dibcHttp.post(url, userdata);
+    const url = Constants.USER_API_PATH + 'consumer_register';
+    const apiResp = await this.veronHttp.post(url, userdata);
     return apiResp;
   }
   async allusers() {
     const url = Constants.USER_API_PATH + 'allUsers';
-    const respData = await this.dibcHttp.post(url, {});
+    const respData = await this.veronHttp.post(url, {});
     if (respData) {
       return respData.users;
     } else {
@@ -120,11 +121,17 @@ export class UserService {
       userId: userId
     }
     const url = Constants.USER_API_PATH + 'get_userbyId';
-    const respData = await this.dibcHttp.post(url, data);
+    const respData = await this.veronHttp.post(url, data);
     if (respData) {
       return respData.user;
     } else {
       return {}
     }
   }
+  async savePersonalInfo(formData: any) {
+    const url = Constants.CONSUMER_API_PATH + 'update_profile';
+    const apiResp = await this.veronHttp.post(url, formData);
+    return apiResp;
+  }
+
 }

@@ -8,13 +8,33 @@
   <ion-content>
     <ion-list>
       <ion-item (click)="navigateAndCloseMenu('/home')">
-        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <ion-icon slot="start" name="home-outline"></ion-icon>
         Dashboard
       </ion-item>
+
+      <ion-item (click)="navigateAndCloseMenu('/orders')">
+        <ion-icon slot="start" name="receipt-outline"></ion-icon>
+        Order History
+      </ion-item>
+
+      <ion-item (click)="navigateAndCloseMenu('/favorites')">
+        <ion-icon slot="start" name="heart-outline"></ion-icon>
+        Favorites
+      </ion-item>
+
+      <ion-item (click)="navigateAndCloseMenu('/change-password')">
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        Change Password
+      </ion-item>
+
+      <ion-item (click)="navigateAndCloseMenu('/personal-info')">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        Personal Information
+      </ion-item>
+
       <ion-item (click)="logout()">
         <ion-icon slot="start" name="log-out-outline"></ion-icon>
         Logout
       </ion-item>
     </ion-list>
   </ion-content>
-</ion-menu>

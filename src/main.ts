@@ -25,6 +25,12 @@ import {
   flagOutline,
   pricetagOutline,
   swapHorizontalOutline,
+  receiptOutline,
+  heartOutline,
+  lockClosedOutline,
+  callOutline,
+  documentTextOutline,
+  locateOutline
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
@@ -50,7 +56,14 @@ addIcons({
   'phone-portrait-outline': phonePortraitOutline,
   'flash-outline': flagOutline,
   'pricetag-outline': pricetagOutline,
-  'swap-horizontal-outline': swapHorizontalOutline
+  'swap-horizontal-outline': swapHorizontalOutline,
+  'receipt-outline': receiptOutline,
+  'heart-outline': heartOutline,
+  'lock-closed-outline': lockClosedOutline,
+  'call-outline': callOutline,
+  'document-text-outline': documentTextOutline,
+  'location-outline': locateOutline,
+  'pin': locateOutline
 });
 
 bootstrapApplication(AppComponent, appConfig)
