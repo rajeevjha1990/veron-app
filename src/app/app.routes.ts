@@ -62,5 +62,9 @@ export const routes: Routes = [
     path: 'all-electriccharges',
     loadComponent: () => import('./pages/all-electriccharges/all-electriccharges.page').then( m => m.AllElectricchargesPage)
   },
+  {
+    path: 'mobile-recharge',
+    loadComponent: () => import('./pages/mobile-recharge/mobile-recharge.page').then( m => m.MobileRechargePage)
+  },
 
 ];

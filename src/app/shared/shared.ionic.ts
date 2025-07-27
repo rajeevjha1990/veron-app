@@ -40,7 +40,10 @@ import {
     IonSegmentButton,
     IonFooter,
     IonInputOtp,
-    IonTab
+    IonTab,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent
+
 } from '@ionic/angular/standalone';
 
 export const SHARED_IONIC_MODULES = [
@@ -86,5 +89,8 @@ export const SHARED_IONIC_MODULES = [
     IonSegmentButton,
     IonFooter,
     IonInputOtp,
-    IonTab
+    IonTab,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent
+
 ];
