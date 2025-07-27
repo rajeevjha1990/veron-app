@@ -154,5 +154,24 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, formData);
     return apiResp;
   }
+  async rechargeHistory(all = false) {
+    const url = Constants.CONSUMER_API_PATH + 'recharge_history';
+    const respData = await this.veronHttp.post(url, {
+      all_data: all ? 'yes' : 'no'
+    });
+
+    if (respData) {
+      return {
+        mobileRecharge: respData.mobilerechargeHistorise || [],
+        electricityRecharge: respData.electricrechargeHistorise || []
+      };
+    } else {
+      return {
+        mobileRecharge: [],
+        electricityRecharge: []
+      };
+    }
+  }
+
 
 }

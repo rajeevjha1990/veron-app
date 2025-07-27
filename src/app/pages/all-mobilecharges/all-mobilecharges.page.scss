@@ -1,0 +1,9 @@
+.subtitle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .amount-label {
+        font-weight: bold;
+    }
+}

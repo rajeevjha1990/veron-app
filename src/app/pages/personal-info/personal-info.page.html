@@ -130,21 +130,21 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="currentTab" value="personal" class="custom-segment">
+    <ion-segment [(ngModel)]="currentTab" class="custom-segment">
       <ion-segment-button value="personal">
-        <ion-icon name="person-outline"></ion-icon>
+        <ion-icon [ngClass]="{ 'selected-tab': currentTab === 'personal' }" name="person-outline"></ion-icon>
       </ion-segment-button>
 
       <ion-segment-button value="contact">
-        <ion-icon name="call-outline"></ion-icon>
+        <ion-icon [ngClass]="{ 'selected-tab': currentTab === 'contact' }" name="call-outline"></ion-icon>
       </ion-segment-button>
 
       <ion-segment-button value="kyc">
-        <ion-icon name="document-text-outline"></ion-icon>
+        <ion-icon [ngClass]="{ 'selected-tab': currentTab === 'kyc' }" name="document-text-outline"></ion-icon>
       </ion-segment-button>
 
       <ion-segment-button value="address">
-        <ion-icon name="pin"></ion-icon>
+        <ion-icon [ngClass]="{ 'selected-tab': currentTab === 'address' }" name="pin"></ion-icon>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

@@ -39,7 +39,8 @@ import {
     IonSegment,
     IonSegmentButton,
     IonFooter,
-    IonInputOtp
+    IonInputOtp,
+    IonTab
 } from '@ionic/angular/standalone';
 
 export const SHARED_IONIC_MODULES = [
@@ -84,5 +85,6 @@ export const SHARED_IONIC_MODULES = [
     IonSegment,
     IonSegmentButton,
     IonFooter,
-    IonInputOtp
+    IonInputOtp,
+    IonTab
 ];

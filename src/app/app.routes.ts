@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'splash',  // 👈 change from 'home' to 'splash'
+    redirectTo: 'splash',
     pathMatch: 'full',
   },
   {
@@ -24,34 +24,43 @@ export const routes: Routes = [
   },
   {
     path: 'signup',
-    loadComponent: () => import('./pages/signup/signup.page').then( m => m.SignupPage)
+    loadComponent: () => import('./pages/signup/signup.page').then(m => m.SignupPage)
   },
   {
     path: 'ordes',
-    loadComponent: () => import('./pages/ordes/ordes.page').then( m => m.OrdesPage)
+    loadComponent: () => import('./pages/ordes/ordes.page').then(m => m.OrdesPage)
   },
   {
     path: 'orders',
-    loadComponent: () => import('./pages/orders/orders.page').then( m => m.OrdersPage)
+    loadComponent: () => import('./pages/orders/orders.page').then(m => m.OrdersPage)
   },
   {
     path: 'favorites',
-    loadComponent: () => import('./pages/favorites/favorites.page').then( m => m.FavoritesPage)
+    loadComponent: () => import('./pages/favorites/favorites.page').then(m => m.FavoritesPage)
   },
   {
     path: 'change-password',
-    loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
+    loadComponent: () => import('./pages/change-password/change-password.page').then(m => m.ChangePasswordPage)
   },
   {
     path: 'personal-info',
-    loadComponent: () => import('./pages/personal-info/personal-info.page').then( m => m.PersonalInfoPage)
+    loadComponent: () => import('./pages/personal-info/personal-info.page').then(m => m.PersonalInfoPage)
   },
   {
     path: 'statefilter',
-    loadComponent: () => import('./pages/statefilter/statefilter.page').then( m => m.StatefilterPage)
+    loadComponent: () => import('./pages/statefilter/statefilter.page').then(m => m.StatefilterPage)
   },
   {
     path: 'cityfilter',
-    loadComponent: () => import('./pages/cityfilter/cityfilter.page').then( m => m.CityfilterPage)
-  }
+    loadComponent: () => import('./pages/cityfilter/cityfilter.page').then(m => m.CityfilterPage)
+  },
+  {
+    path: 'all-mobilecharges',
+    loadComponent: () => import('./pages/all-mobilecharges/all-mobilecharges.page').then( m => m.AllMobilechargesPage)
+  },
+  {
+    path: 'all-electriccharges',
+    loadComponent: () => import('./pages/all-electriccharges/all-electriccharges.page').then( m => m.AllElectricchargesPage)
+  },
+
 ];
