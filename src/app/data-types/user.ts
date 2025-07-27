@@ -12,4 +12,5 @@ export class User {
     aadhaar_no: string = '';
     pancard: string = '';
     pincode: string = '';
+    image: string = '';
 };

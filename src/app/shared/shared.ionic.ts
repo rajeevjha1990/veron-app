@@ -42,7 +42,8 @@ import {
     IonInputOtp,
     IonTab,
     IonInfiniteScroll,
-    IonInfiniteScrollContent
+    IonInfiniteScrollContent,
+    IonAvatar,
 
 } from '@ionic/angular/standalone';
 
@@ -91,6 +92,7 @@ export const SHARED_IONIC_MODULES = [
     IonInputOtp,
     IonTab,
     IonInfiniteScroll,
-    IonInfiniteScrollContent
+    IonInfiniteScrollContent,
+    IonAvatar,
 
 ];

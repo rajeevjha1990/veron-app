@@ -22,15 +22,20 @@ import {
   closeOutline,
   printOutline,
   phonePortraitOutline,
-  flagOutline,
-  pricetagOutline,
   swapHorizontalOutline,
   receiptOutline,
   heartOutline,
   lockClosedOutline,
   callOutline,
   documentTextOutline,
-  locateOutline
+  locateOutline,
+  flashOutline,
+  ticketOutline,
+  cardOutline,
+  walletOutline,
+  calendarNumberOutline,
+  cashOutline,
+  calendarOutline
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
@@ -54,8 +59,7 @@ addIcons({
   'close-circle-outline': closeOutline,
   'print-outline': printOutline,
   'phone-portrait-outline': phonePortraitOutline,
-  'flash-outline': flagOutline,
-  'pricetag-outline': pricetagOutline,
+  'flash-outline': flashOutline,
   'swap-horizontal-outline': swapHorizontalOutline,
   'receipt-outline': receiptOutline,
   'heart-outline': heartOutline,
@@ -63,7 +67,13 @@ addIcons({
   'call-outline': callOutline,
   'document-text-outline': documentTextOutline,
   'location-outline': locateOutline,
-  'pin': locateOutline
+  'pin': locateOutline,
+  'ticket-outline': ticketOutline,
+  'card-outline': cardOutline,
+  'wallet-outline': walletOutline,
+  'calendar-outline': calendarOutline,
+  'cash-outline': cashOutline
+
 });
 
 bootstrapApplication(AppComponent, appConfig)

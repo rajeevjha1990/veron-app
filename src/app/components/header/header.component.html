@@ -9,7 +9,7 @@
         Login
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end" *ngIf="user.loggedIn">
+    <ion-buttons slot="end" *ngIf="user.loggedIn" (click)="openPopover($event)">
       <ion-button fill="clear" disabled>
         {{ user.consumer_name }}
       </ion-button>

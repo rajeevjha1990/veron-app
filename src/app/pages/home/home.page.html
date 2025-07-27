@@ -1,8 +1,6 @@
 <ion-header translucent="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+
     <ion-title>Recharge</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -25,7 +23,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="3" class="service-button" *ngFor="let service of services">
-        <div class="icon-box">
+        <div class="icon-box" (click)="goToPage(service.route)">
           <ion-icon [name]="service.icon" class="small-icon"></ion-icon>
         </div>
         <div class="small-text">

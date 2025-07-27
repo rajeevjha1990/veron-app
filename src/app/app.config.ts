@@ -6,17 +6,18 @@ import { provideIonicAngular } from '@ionic/angular/standalone';
 import { IonicRouteStrategy } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
 import { routes } from './app.routes';
-import { ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
 export const appConfig = {
     providers: [
+
         provideIonicAngular(),
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         provideRouter(routes, withPreloading(PreloadAllModules)),
         importProvidersFrom(
             HttpClientModule,
-            IonicStorageModule.forRoot()
+            IonicStorageModule.forRoot(),
+            IonicModule.forRoot()
         ),
-        ModalController
     ]
 };
