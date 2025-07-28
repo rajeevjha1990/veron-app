@@ -9,19 +9,19 @@
     <div class="amount">0</div>
   </ion-item>
 
-  <ion-item lines="none">
+  <ion-item lines="none" (click)="onSelect('wallet')">
     <ion-icon name="wallet-outline" slot="start"></ion-icon>
     <ion-label class="mylabel">Wallet</ion-label>
     <div class="amount">₹ 0</div>
   </ion-item>
 
-  <ion-item lines="none">
+  <ion-item lines="none" (click)="onSelect('balance')">
     <ion-icon name="calendar-outline" slot="start"></ion-icon>
     <ion-label class="mylabel">This Month's Coupon Balance</ion-label>
     <div class="amount">₹ 0</div>
   </ion-item>
 
-  <ion-item lines="none">
+  <ion-item lines="none" (click)="onSelect('cbalance')">
     <ion-icon name="cash-outline" slot="start"></ion-icon>
     <ion-label class="mylabel">Coupon Main Balance</ion-label>
     <div class="amount">₹ 0</div>

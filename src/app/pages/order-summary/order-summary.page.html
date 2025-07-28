@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="step-indicator">
+    <div class="step done">Order</div>
+    <div class="line done"></div>
+    <div class="step active">Summary</div>
+    <div class="line"></div>
+    <div class="step">Payment</div>
+    <div class="line"></div>
+    <div class="step">Done</div>
+  </div>
+  <ion-card class="summary-card">
+    <ion-card-header>
+      <ion-card-title class="center-title">Order Summary Mobile Recharge</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="summary-row"><span>Mobile Number</span> <strong>(+91) {{ orderData?.mobile }}</strong></div>
+      <div class="summary-row"><span>Provider</span> <strong>{{ orderData?.operatorName }}</strong></div>
+      <div class="summary-row"><span>State</span> <strong>{{ orderData?.circle }}</strong></div>
+      <div class="summary-row"><span>Amount</span> <strong>₹{{ orderData?.amount }}</strong></div>
+
+      <ion-item color="light" class="payable-box">
+        <ion-label><strong>Payable Amount</strong></ion-label>
+        <ion-note slot="end" color="dark"><strong>₹{{ orderData?.amount }}</strong></ion-note>
+      </ion-item>
+
+      <div class="wallet-warning ion-padding">
+        Your wallet balance is low. You need <strong>₹{{ orderData?.amount }}</strong> more.
+      </div>
+
+      <ion-button expand="block" color="primary">
+        Recharge Wallet
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

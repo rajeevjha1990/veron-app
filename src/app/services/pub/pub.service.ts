@@ -21,7 +21,7 @@ export class PubService {
       return []
     }
   }
-  async getCircle() {
+  async getCircles() {
     const url = Constants.USER_API_PATH + 'circles';
     const respData = await this.dibcHttp.post(url, {});
     if (respData) {
@@ -49,6 +49,29 @@ export class PubService {
       return respData.cities;
     } else {
       return []
+    }
+  }
+  async planTypes() {
+    const url = Constants.USER_API_PATH + 'plan_types';
+    const respData = await this.dibcHttp.post(url, {});
+    if (respData) {
+      return respData.plantypes;
+    } else {
+      return [];
+    }
+  }
+  async plansByType(typeId: any, operator: any, circle: any) {
+    const data = {
+      planType: typeId,
+      operator: operator,
+      circle: circle
+    }
+    const url = Constants.USER_API_PATH + 'get_plans_by_type';
+    const respData = await this.dibcHttp.post(url, data);
+    if (respData) {
+      return respData.plans;
+    } else {
+      return [];
     }
   }
 }

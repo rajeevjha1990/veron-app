@@ -66,5 +66,13 @@ export const routes: Routes = [
     path: 'mobile-recharge',
     loadComponent: () => import('./pages/mobile-recharge/mobile-recharge.page').then( m => m.MobileRechargePage)
   },
+  {
+    path: 'plan-list',
+    loadComponent: () => import('./pages/plan-list/plan-list.page').then( m => m.PlanListPage)
+  },
+  {
+    path: 'order-summary',
+    loadComponent: () => import('./pages/order-summary/order-summary.page').then( m => m.OrderSummaryPage)
+  },
 
 ];

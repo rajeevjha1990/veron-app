@@ -44,6 +44,9 @@ import {
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     IonAvatar,
+    IonAccordionGroup,
+    IonAccordion,
+    IonChip
 
 } from '@ionic/angular/standalone';
 
@@ -94,5 +97,9 @@ export const SHARED_IONIC_MODULES = [
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     IonAvatar,
+    IonAccordionGroup,
+    IonAccordion,
+    IonChip
+
 
 ];

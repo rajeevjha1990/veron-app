@@ -1,0 +1,80 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Plans</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding" #content>
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-input type="number" [(ngModel)]="formData.mobile" name="mobile"
+                placeholder="Enter mobile number"></ion-input>
+            </ion-item>
+          </ion-col>
+          <!-- <ion-col size="12">
+            <ion-item class="custom-select">
+              <ion-select [(ngModel)]="formData.operator" name="operator" interface="popover"
+                placeholder="Select your operator" required>
+                <ion-select-option *ngFor="let operator of operators" [value]="operator.id">
+                  {{ operator.operator_name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item button (click)="StateList()">
+              <ion-input placeholder="Select circle" [(ngModel)]="formData.circle" name="circle">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item>
+              <ion-input #amountInput type="number" [(ngModel)]="formData.amount" value=""
+                placeholder="Enter amount"></ion-input>
+            </ion-item>
+          </ion-col> -->
+          <ion-col size="12">
+            <ion-button expand="block" type="submit" (click)="goToSummary()">Next</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <div class="chip-scroll-container">
+    <ion-chip *ngFor="let type of plantypes" [outline]="selectedPlanTypeId !== type.id" color="primary"
+      (click)="onPlanTypeChange({ detail: { value: type.id } })" [class.selected-chip]="selectedPlanTypeId === type.id">
+      {{ type.plan_type_name }}
+    </ion-chip>
+  </div>
+  <!-- Plans List -->
+  <ion-card *ngFor="let plan of plans; let i = index" class="plan-card">
+    <ion-card-header>
+      <ion-card-title>{{ plan.plan_name }}</ion-card-title>
+      <ion-card-subtitle>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span>Validity {{ plan.validity }} day's</span>
+          <ion-button (click)="selectPlan(plan)" fill="solid" size="small" color="secondary">
+            ₹{{ plan.price }}
+          </ion-button>
+        </div>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        {{ showFull[i] ? plan.details : (plan.details | slice:0:100) + (plan.details?.length > 100 ? '...' : '') }}
+      </p>
+      <div style="text-align: right;">
+        <ion-button fill="clear" size="small" (click)="toggleShow(i)">
+          {{ showFull[i] ? 'Show Less' : 'Show More' }}
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

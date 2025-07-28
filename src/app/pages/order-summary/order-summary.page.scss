@@ -1,0 +1,71 @@
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .step {
+        padding: 8px 12px;
+        border-radius: 20px;
+        background: #e0e0e0;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .done {
+        background: #00c853;
+        color: white;
+    }
+
+    .active {
+        background: #00bfa5;
+        color: white;
+    }
+
+    .line {
+        width: 30px;
+        height: 2px;
+        background: #ccc;
+        margin: 0 5px;
+    }
+
+    .done+.line {
+        background: #00c853;
+    }
+}
+
+.center-title {
+    text-align: center;
+    font-size: 18px;
+    background: #ffe0b2;
+    padding: 6px;
+    border-radius: 6px;
+    color: #000;
+}
+
+.summary-card {
+    max-width: 600px;
+    margin: auto;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 15px;
+    color: #444;
+}
+
+.payable-box {
+    margin-top: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.wallet-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-size: 14px;
+}

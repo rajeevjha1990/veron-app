@@ -19,8 +19,7 @@ import { CityfilterPage } from '../cityfilter/cityfilter.page';
 })
 export class PersonalInfoPage implements OnInit {
   formData: any = {};
-  operators: any[] = [];
-  circles: any[] = [];
+
   states: any[] = [];
   cities: any[] = [];
   currentTab: string = 'personal';
@@ -35,9 +34,6 @@ export class PersonalInfoPage implements OnInit {
   async ngOnInit() {
     this.userServ.user.subscribe(async u => {
       this.user = u;
-
-      this.operators = await this.pubServ.getOperators();
-      this.circles = await this.pubServ.getCircle();
       this.states = await this.pubServ.getStates();
       console.log('User data in personal info page:', this.user);
 

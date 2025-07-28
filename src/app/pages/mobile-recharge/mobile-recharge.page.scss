@@ -1,0 +1,8 @@
+.custom-select ion-select::part(icon) {
+    margin-left: auto;
+    margin-right: 0;
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+}

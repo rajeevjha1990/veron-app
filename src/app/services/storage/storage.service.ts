@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class StorageService {
   private _storage: Storage | null = null;
+  private formData: any = null;
 
   constructor(private storage: Storage) {
     console.log('init storage');
@@ -43,4 +44,17 @@ export class StorageService {
   delay(ms: number) {
     return new Promise(res => setTimeout(res, ms));
   }
+  async setFormData(data: any) {
+    await this._storage?.set('formData', data);
+  }
+
+  async getFormData(): Promise<any> {
+    return await this._storage?.get('formData');
+  }
+
+  async clearFormData() {
+    await this._storage?.remove('formData');
+  }
+
+
 }
