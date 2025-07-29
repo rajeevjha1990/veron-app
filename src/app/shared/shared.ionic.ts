@@ -46,7 +46,8 @@ import {
     IonAvatar,
     IonAccordionGroup,
     IonAccordion,
-    IonChip
+    IonChip,
+    IonProgressBar
 
 } from '@ionic/angular/standalone';
 
@@ -99,7 +100,7 @@ export const SHARED_IONIC_MODULES = [
     IonAvatar,
     IonAccordionGroup,
     IonAccordion,
-    IonChip
-
+    IonChip,
+    IonProgressBar
 
 ];

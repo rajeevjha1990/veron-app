@@ -5,6 +5,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card class="ion-margin-bottom">
+    <ion-card-content>
+      <ion-label>
+        Profile Completion: {{ profileCompletion }}%
+      </ion-label>
+      <ion-progress-bar value="{{ profileCompletion / 100 }}"></ion-progress-bar>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title>

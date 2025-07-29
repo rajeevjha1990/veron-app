@@ -24,6 +24,7 @@ export class PersonalInfoPage implements OnInit {
   cities: any[] = [];
   currentTab: string = 'personal';
   user: User = new User();
+  profileCompletion: number = 0;
 
   constructor(
     private pubServ: PubService,
@@ -59,8 +60,8 @@ export class PersonalInfoPage implements OnInit {
         this.formData.pancard = u.pancard;
         this.formData.pincode = u.pincode;
       }
+      this.calculateProfileCompletion()
 
-      console.log('Form data initialized:', this.formData);
     });
   }
 
@@ -178,4 +179,30 @@ export class PersonalInfoPage implements OnInit {
       this.formData.city_id = null;
     }
   }
+  calculateProfileCompletion() {
+    let completedFields = 0;
+    let totalFields = 11;
+
+    const fields = [
+      this.formData.gender,
+      this.formData.consumer_name,
+      this.formData.dob,
+      this.formData.mobile_no,
+      this.formData.email,
+      this.formData.aadhaar_no,
+      this.formData.pancard,
+      this.formData.address,
+      this.formData.state_id,
+      this.formData.city_id,
+      this.formData.pincode
+    ];
+    fields.forEach(field => {
+      if (field !== undefined && field !== null && field !== '') {
+        completedFields++;
+      }
+    });
+
+    this.profileCompletion = Math.round((completedFields / totalFields) * 100);
+  }
+
 }
