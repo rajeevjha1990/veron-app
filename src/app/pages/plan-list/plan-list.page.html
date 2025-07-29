@@ -5,8 +5,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding" #content>
+  <h3 style="margin-left: 15px;">Select Plan</h3>
   <ion-card>
     <ion-card-header>
+      <ion-card-title></ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
@@ -17,41 +19,25 @@
                 placeholder="Enter mobile number"></ion-input>
             </ion-item>
           </ion-col>
-          <!-- <ion-col size="12">
-            <ion-item class="custom-select">
-              <ion-select [(ngModel)]="formData.operator" name="operator" interface="popover"
-                placeholder="Select your operator" required>
-                <ion-select-option *ngFor="let operator of operators" [value]="operator.id">
-                  {{ operator.operator_name }}
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item button (click)="StateList()">
-              <ion-input placeholder="Select circle" [(ngModel)]="formData.circle" name="circle">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item>
-              <ion-input #amountInput type="number" [(ngModel)]="formData.amount" value=""
-                placeholder="Enter amount"></ion-input>
-            </ion-item>
-          </ion-col> -->
-          <ion-col size="12">
-            <ion-button expand="block" type="submit" (click)="goToSummary()">Next</ion-button>
-          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
-  <div class="chip-scroll-container">
-    <ion-chip *ngFor="let type of plantypes" [outline]="selectedPlanTypeId !== type.id" color="primary"
-      (click)="onPlanTypeChange({ detail: { value: type.id } })" [class.selected-chip]="selectedPlanTypeId === type.id">
-      {{ type.plan_type_name }}
-    </ion-chip>
+
+  <div class="plan-swiper swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let type of plantypes">
+        <ion-chip [outline]="selectedPlanTypeId !== type.id" color="primary"
+          (click)="onPlanTypeChange({ detail: { value: type.id } })"
+          [class.selected-chip]="selectedPlanTypeId === type.id">
+          {{ type.plan_type_name }}
+        </ion-chip>
+      </div>
+    </div>
   </div>
+
+
+
   <!-- Plans List -->
   <ion-card *ngFor="let plan of plans; let i = index" class="plan-card">
     <ion-card-header>
@@ -59,7 +45,7 @@
       <ion-card-subtitle>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <span>Validity {{ plan.validity }} day's</span>
-          <ion-button (click)="selectPlan(plan)" fill="solid" size="small" color="secondary">
+          <ion-button (click)="selectAndGo(plan)" fill="solid" size="small" color="secondary">
             ₹{{ plan.price }}
           </ion-button>
         </div>

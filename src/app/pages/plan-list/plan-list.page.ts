@@ -9,17 +9,20 @@ import { StatefilterPage } from '../statefilter/statefilter.page';
 import { IonContent } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 
+Swiper.use([Navigation, Pagination]);
 @Component({
   selector: 'app-plan-list',
   templateUrl: './plan-list.page.html',
   styleUrls: ['./plan-list.page.scss'],
   standalone: true,
-  imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule]
+  imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule,
+  ]
 })
 export class PlanListPage implements OnInit {
   @ViewChild('content', { static: false }) content: IonContent | undefined;
-
   formData = {
     mobile: '',
     operator: '',
@@ -34,6 +37,8 @@ export class PlanListPage implements OnInit {
   operators: any[] = [];
   circles: any[] = [];
   selectedPlan: any = {}
+  swiper: any;
+
   constructor(
     private storServ: StorageService,
     private pubServ: PubService,
@@ -100,6 +105,35 @@ export class PlanListPage implements OnInit {
       state: { data: dataToSend }
     });
   }
+  selectAndGo(plan: any) {
+    this.selectPlan(plan);
+    this.goToSummary();
+  }
 
+  ngAfterViewInit(): void {
+    new Swiper('.mySwiper', {
+      loop: false,
+      slidesPerView: 3,
+      spaceBetween: 8,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  }
+  initSwiper() {
+    if (this.swiper) {
+      this.swiper.destroy(true, true); // already initialized swiper ko destroy karo
+    }
+    this.swiper = new Swiper('.mySwiper', {
+      loop: false,
+      slidesPerView: 3,
+      spaceBetween: 8,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  }
 
 }

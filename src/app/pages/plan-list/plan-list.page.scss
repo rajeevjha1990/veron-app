@@ -1,8 +1,32 @@
-.selected-chip {
-    font-weight: bold;
-    border: 2px solid #3880ff;
-}
+.plan-swiper {
+    width: 100%;
+    padding: 4px 0;
 
-.plan-card {
-    margin-bottom: 10px;
+    .swiper-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .swiper-slide {
+        width: auto !important;
+        /* Ensure slide adjusts to chip size */
+        margin-right: 8px;
+        /* Reduce space between chips */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    ion-chip {
+        height: 40px;
+        font-size: 14px;
+        padding: 0 12px;
+        --background: #f4f4f4;
+        --color: #000;
+
+        &.selected-chip {
+            --background: var(--ion-color-primary);
+            --color: #fff;
+        }
+    }
 }

@@ -8,6 +8,9 @@ import { MenuComponent } from './components/menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationStart } from '@angular/router';
 import { SHARED_IONIC_MODULES } from './shared/shared.ionic';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 @Component({
   selector: 'app-root',

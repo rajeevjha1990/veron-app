@@ -4,14 +4,20 @@
       <ion-menu-button></ion-menu-button>
       <img src="assets/logo.png" alt="Company Logo" style="max-width: 50%;">
     </ion-buttons>
+
+    <!-- If not logged in -->
     <ion-buttons slot="end" *ngIf="!user.loggedIn">
       <ion-button style="color: #000;" fill="clear" (click)="goToLogin()">
         Login
       </ion-button>
     </ion-buttons>
+
+    <!-- If logged in -->
     <ion-buttons slot="end" *ngIf="user.loggedIn" (click)="openPopover($event)">
-      <ion-button fill="clear" disabled>
-        {{ user.consumer_name }}
+      <ion-button fill="clear">
+        <ion-avatar slot="end" style="height: 30px;width: 30px;">
+          <img [src]="user.image ? user.image : '/assets/avtar.png'" alt="User Image" />
+        </ion-avatar>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

@@ -10,7 +10,6 @@ import { IonicModule } from '@ionic/angular';
 
 export const appConfig = {
     providers: [
-
         provideIonicAngular(),
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         provideRouter(routes, withPreloading(PreloadAllModules)),
@@ -19,5 +18,5 @@ export const appConfig = {
             IonicStorageModule.forRoot(),
             IonicModule.forRoot()
         ),
-    ]
+    ],
 };
