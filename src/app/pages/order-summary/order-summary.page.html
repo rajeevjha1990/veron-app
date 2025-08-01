@@ -34,9 +34,22 @@
         Your wallet balance is low. You need <strong>₹{{ orderData?.amount }}</strong> more.
       </div>
 
-      <ion-button expand="block" color="primary">
-        Recharge Wallet
+      <ion-button expand="block" color="tertiary" (click)="payWithCoupon('coupon')">
+        <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+        Pay with Coupon
       </ion-button>
+
+      <ion-button expand="block" color="success" (click)="payWithCoupon('wallet')">
+        <ion-icon name="wallet-outline" slot="start"></ion-icon>
+        Pay with VM Wallet
+      </ion-button>
+
+      <ion-button expand="block" color="warning" (click)="payWithCoupon('online')">
+        <ion-icon name="card-outline" slot="start"></ion-icon>
+        Pay via Payment Gateway
+      </ion-button>
+
+
     </ion-card-content>
   </ion-card>
 

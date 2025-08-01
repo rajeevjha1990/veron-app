@@ -74,5 +74,17 @@ export const routes: Routes = [
     path: 'order-summary',
     loadComponent: () => import('./pages/order-summary/order-summary.page').then( m => m.OrderSummaryPage)
   },
+  {
+    path: 'wallet-recharge-form',
+    loadComponent: () => import('./pages/wallet-recharge-form/wallet-recharge-form.page').then( m => m.WalletRechargeFormPage)
+  },
+  {
+    path: 'coupon-recharge-form',
+    loadComponent: () => import('./pages/coupon-recharge-form/coupon-recharge-form.page').then( m => m.CouponRechargeFormPage)
+  },
+  {
+    path: 'order-history',
+    loadComponent: () => import('./pages/order-history/order-history.page').then( m => m.OrderHistoryPage)
+  },
 
 ];

@@ -172,6 +172,11 @@ export class UserService {
       };
     }
   }
+  async getLastReschargeOrderByuser(orderData: any) {
 
+    const url = Constants.CONSUMER_API_PATH + 'lastRechargeOrder';
+    const apiResp = await this.veronHttp.post(url, orderData);
+    return apiResp;
+  }
 
 }

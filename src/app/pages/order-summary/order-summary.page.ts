@@ -1,9 +1,10 @@
+import { AlertController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -15,17 +16,43 @@ import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 export class OrderSummaryPage implements OnInit {
   orderData: any = {}
   constructor(
-    private router: Router) { }
+    private router: Router,
+    private alertCtrl: AlertController,
+    private userServ: UserService,
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state?.['data']) {
       this.orderData = navigation.extras.state['data'];
       console.log('Received Order Data:', this.orderData);
-    } else {
-      // fallback, if someone visits directly without data
-      console.warn('No data received');
     }
+  }
+  async payWithCoupon(mode: 'coupon' | 'wallet' | 'online') {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm Payment',
+      message: 'Are you sure you want to pay via your coupon wallet?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Yes, Pay Now',
+          handler: async () => {
+            this.orderData.payMode = mode;
+            const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData);
+            console.log(resp);
+            if (resp) {
+              this.navCtrl.navigateForward('/order-history');
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 

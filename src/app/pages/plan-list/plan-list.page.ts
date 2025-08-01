@@ -93,6 +93,7 @@ export class PlanListPage implements OnInit {
       mobile: this.formData.mobile,
       operator: this.formData.operator,
       circle: this.formData.circle,
+      circleId: this.formData.state_id,
       amount: this.formData.amount,
     };
 
@@ -123,7 +124,7 @@ export class PlanListPage implements OnInit {
   }
   initSwiper() {
     if (this.swiper) {
-      this.swiper.destroy(true, true); // already initialized swiper ko destroy karo
+      this.swiper.destroy(true, true);
     }
     this.swiper = new Swiper('.mySwiper', {
       loop: false,
