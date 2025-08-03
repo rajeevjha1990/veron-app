@@ -41,5 +41,9 @@ export class MenuComponent implements OnInit {
     await this.navCtrl.navigateRoot(link);
 
   }
+  accordionGroupChange(event: any) {
+    console.log('Accordion group changed:', event);
+    // You can add your logic here, e.g., saving the expanded panel
+  }
 
 }

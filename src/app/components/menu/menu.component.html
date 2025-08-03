@@ -12,10 +12,29 @@
         Dashboard
       </ion-item>
 
-      <ion-item (click)="navigateAndCloseMenu('/orders')">
-        <ion-icon slot="start" name="receipt-outline"></ion-icon>
-        Order History
-      </ion-item>
+
+      <ion-accordion-group (ionChange)="accordionGroupChange($event)">
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-icon slot="start" name="receipt-outline"></ion-icon>
+            <ion-label>Order History</ion-label>
+          </ion-item>
+
+          <ion-item slot="content">
+            <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+            <ion-label>Recharge</ion-label>
+          </ion-item>
+
+          <ion-item slot="content">
+            <ion-icon slot="start" name="flash-outline"></ion-icon>
+            <ion-label>Electricity Bill Payment</ion-label>
+          </ion-item>
+        </ion-accordion>
+      </ion-accordion-group>
+
+
+
+
 
       <ion-item (click)="navigateAndCloseMenu('/favorites')">
         <ion-icon slot="start" name="heart-outline"></ion-icon>

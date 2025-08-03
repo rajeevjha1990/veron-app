@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>coupon-code</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <!-- Coupon Info Card -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Coupon Details</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>
+        <strong>Coupon Name:</strong> {{ couponData.coupon_name }}
+      </ion-label>
+      <br />
+      <ion-label>
+        <strong>Coupon Code:</strong>
+        <ion-chip color="danger">{{ couponData.coupon_code }}</ion-chip>
+      </ion-label>
+      <br />
+      <ion-label>
+        <strong>Coupon Value:</strong>
+        ₹{{ couponData.coupon_value }}
+      </ion-label>
+      <br />
+      <ion-label>
+        <strong>Description:</strong><br />
+        Get double the amount on ₹{{ couponData.price }} — receive ₹{{ couponData.coupon_value }} in your COUPON
+        WALLET.<br />
+        Usable balance of ₹500 will be credited every month for 10 months (conditions apply).
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Payable Amount Summary -->
+  <ion-card color="light">
+    <ion-card-header>
+      <ion-card-title>Payable Amount</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>Amount</ion-label>
+        <ion-note slot="end" color="dark"><strong>₹{{ couponData.price }}</strong></ion-note>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Total</ion-label>
+        <ion-note slot="end" color="primary" class="ion-text-bold">₹{{ couponData.price }}</ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Proceed Button -->
+  <ion-button expand="block" color="primary" (click)="openPayment()">
+    Proceed to Pay ₹{{ couponData.price }}
+  </ion-button>
+
+</ion-content>

@@ -56,35 +56,40 @@ export const routes: Routes = [
   },
   {
     path: 'all-mobilecharges',
-    loadComponent: () => import('./pages/all-mobilecharges/all-mobilecharges.page').then( m => m.AllMobilechargesPage)
+    loadComponent: () => import('./pages/all-mobilecharges/all-mobilecharges.page').then(m => m.AllMobilechargesPage)
   },
   {
     path: 'all-electriccharges',
-    loadComponent: () => import('./pages/all-electriccharges/all-electriccharges.page').then( m => m.AllElectricchargesPage)
+    loadComponent: () => import('./pages/all-electriccharges/all-electriccharges.page').then(m => m.AllElectricchargesPage)
   },
   {
     path: 'mobile-recharge',
-    loadComponent: () => import('./pages/mobile-recharge/mobile-recharge.page').then( m => m.MobileRechargePage)
+    loadComponent: () => import('./pages/mobile-recharge/mobile-recharge.page').then(m => m.MobileRechargePage)
   },
   {
     path: 'plan-list',
-    loadComponent: () => import('./pages/plan-list/plan-list.page').then( m => m.PlanListPage)
+    loadComponent: () => import('./pages/plan-list/plan-list.page').then(m => m.PlanListPage)
   },
   {
     path: 'order-summary',
-    loadComponent: () => import('./pages/order-summary/order-summary.page').then( m => m.OrderSummaryPage)
+    loadComponent: () => import('./pages/order-summary/order-summary.page').then(m => m.OrderSummaryPage)
   },
   {
     path: 'wallet-recharge-form',
-    loadComponent: () => import('./pages/wallet-recharge-form/wallet-recharge-form.page').then( m => m.WalletRechargeFormPage)
+    loadComponent: () => import('./pages/wallet-recharge-form/wallet-recharge-form.page').then(m => m.WalletRechargeFormPage)
   },
-  {
-    path: 'coupon-recharge-form',
-    loadComponent: () => import('./pages/coupon-recharge-form/coupon-recharge-form.page').then( m => m.CouponRechargeFormPage)
-  },
+
   {
     path: 'order-history',
-    loadComponent: () => import('./pages/order-history/order-history.page').then( m => m.OrderHistoryPage)
+    loadComponent: () => import('./pages/order-history/order-history.page').then(m => m.OrderHistoryPage)
+  },
+  {
+    path: 'coupon-code',
+    loadComponent: () => import('./pages/coupon-code/coupon-code.page').then( m => m.CouponCodePage)
+  },
+  {
+    path: 'coupon-order',
+    loadComponent: () => import('./pages/coupon-order/coupon-order.page').then( m => m.CouponOrderPage)
   },
 
 ];

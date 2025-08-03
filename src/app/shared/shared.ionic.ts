@@ -102,5 +102,4 @@ export const SHARED_IONIC_MODULES = [
     IonAccordion,
     IonChip,
     IonProgressBar
-
 ];
