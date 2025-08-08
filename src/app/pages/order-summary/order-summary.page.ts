@@ -44,7 +44,6 @@ export class OrderSummaryPage implements OnInit {
           handler: async () => {
             this.orderData.payMode = mode;
             const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData);
-            console.log(resp);
             if (resp) {
               this.navCtrl.navigateForward('/order-history');
             }

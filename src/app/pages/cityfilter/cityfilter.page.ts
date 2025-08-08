@@ -25,7 +25,6 @@ export class CityfilterPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    console.log('State ID:', this.stateId);
     this.cities = await this.pubServ.getCities(this.stateId);
     this.filteredCities = [...this.cities];
   }

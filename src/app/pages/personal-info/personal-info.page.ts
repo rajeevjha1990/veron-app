@@ -36,7 +36,6 @@ export class PersonalInfoPage implements OnInit {
     this.userServ.user.subscribe(async u => {
       this.user = u;
       this.states = await this.pubServ.getStates();
-      console.log('User data in personal info page:', this.user);
 
       if (u && u.loggedIn) {
         this.formData.mobile_no = u.mobile_no;

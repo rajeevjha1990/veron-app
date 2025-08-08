@@ -9,7 +9,6 @@ export class StorageService {
   private formData: any = null;
 
   constructor(private storage: Storage) {
-    console.log('init storage');
     this.init();
   }
 

@@ -39,7 +39,6 @@ export class MenuComponent implements OnInit {
   async navigateAndCloseMenu(link: string) {
     await this.menuCtrl.close();
     await this.navCtrl.navigateRoot(link);
-
   }
   accordionGroupChange(event: any) {
     console.log('Accordion group changed:', event);

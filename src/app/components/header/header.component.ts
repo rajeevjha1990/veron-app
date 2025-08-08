@@ -27,16 +27,17 @@ export class HeaderComponent {
   ) {
     this.userServ.user.subscribe(async u => {
       this.user = u;
-      console.log(this.user);
     });
   }
   async logout() {
-    await this.userServ.logout();
-    const menuOpen: any = document.getElementsByClassName('menu-content-open')
-    setTimeout(() => {
+    try {
+      await this.userServ.logout(); // Wait for server
       this.navCtrl.navigateRoot('/');
-    }, 1000);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   }
+
   async goToLogin() {
     const modal = await this.modalCtrl.create({
       component: LoginPage,

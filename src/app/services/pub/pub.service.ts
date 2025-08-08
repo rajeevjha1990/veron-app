@@ -31,7 +31,7 @@ export class PubService {
     }
   }
   async getStates() {
-    const url = Constants.USER_API_PATH + 'states';
+    const url = Constants.USER_API_PATH + 'circles';
     const respData = await this.dibcHttp.post(url, {});
     if (respData) {
       return respData.states;

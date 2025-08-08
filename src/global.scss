@@ -35,4 +35,18 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
 // @import 'swiper/css';
+ion-header,
+ion-toolbar {
+    padding-top: env(safe-area-inset-top); // iOS safe-area
+}
+
+ion-content {
+    --padding-top: env(safe-area-inset-top);
+}
+
+.custom-header {
+    padding-top: constant(safe-area-inset-top); // fallback for older devices
+    padding-top: env(safe-area-inset-top);
+}

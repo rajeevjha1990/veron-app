@@ -16,17 +16,15 @@
           <ion-row>
             <ion-col size="12">
               <ion-item>
-                <ion-input type="number" [(ngModel)]="formData.mobile" name="mobile" required
-                  placeholder="Enter mobile number">
-                </ion-input>
+                <ion-input [value]="formData.mobile" (ionInput)="validateMobile($event)" type="text" maxlength="10"
+                  placeholder="Enter 10-digit mobile number" required></ion-input>
               </ion-item>
             </ion-col>
-
             <ion-col size="12">
               <ion-item class="custom-select">
                 <ion-select [(ngModel)]="formData.operator" name="operator" interface="popover"
                   placeholder="Select your operator" required>
-                  <ion-select-option *ngFor="let operator of operators" [value]="operator.id">
+                  <ion-select-option *ngFor="let operator of operators" [value]="operator.operator_code">
                     {{ operator.operator_name }}
                   </ion-select-option>
                 </ion-select>

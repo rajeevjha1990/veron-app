@@ -16,48 +16,33 @@
     </ion-card-header>
 
     <ion-card-content>
-      <!-- Toggle Buttons -->
-      <div class="login-toggle">
-        <ion-buttons>
-          <ion-button [color]="loginMode === 'password' ? 'primary' : 'medium'" fill="outline" shape="round"
-            (click)="loginMode = 'password'">
-            Password Login
-          </ion-button>
-          <ion-button [color]="loginMode === 'otp' ? 'primary' : 'medium'" fill="outline" shape="round"
-            (click)="loginMode = 'otp'">
-            OTP Login
-          </ion-button>
-        </ion-buttons>
-      </div>
-
-
-      <div *ngIf="loginMode === 'password'">
-        <ion-item class="ion-margin-top">
-          <ion-input [(ngModel)]="formData.email" placeholder="Email" type="email" required></ion-input>
-        </ion-item>
-        <ion-item class="ion-margin-bottom">
-          <ion-input [(ngModel)]="formData.password" placeholder="Password" type="password" required></ion-input>
-        </ion-item>
-        <ion-button expand="block" (click)="loginClick()">Login</ion-button>
-      </div>
-
-      <div *ngIf="loginMode === 'otp'" class="ion-margin-top">
-        <ion-item>
-          <ion-input [(ngModel)]="otpData.mobile" placeholder="Mobile Number" type="tel"></ion-input>
-        </ion-item>
-        <ion-button expand="block" (click)="sendOtp()" *ngIf="!otpSent">Send OTP</ion-button>
-
-        <div *ngIf="otpSent">
-          <ion-input-otp [length]="4" [(ngModel)]="otpData.otp"></ion-input-otp>
-          <p class="ion-text-center ion-margin-top" *ngIf="timer <= 0">
-            OTP sent to {{ otpData.mobile }}. Please enter the OTP.
-          <p class="ion-text-center ion-margin-top" *ngIf="timer > 0">
-            OTP expires in: {{ timer }} seconds
-          </p>
-
-          <ion-button expand="block" (click)="verifyOtp()">Verify OTP</ion-button>
+      <div>
+        <!-- Show Mobile and Password only if OTP is not sent -->
+        <div *ngIf="!otpSent">
+          <ion-item class="ion-margin-top">
+            <ion-input [(ngModel)]="formData.mobile" placeholder="Enter register mobile" type="tel" maxlength="10"
+              inputmode="numeric" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="ion-margin-bottom">
+            <ion-input [(ngModel)]="formData.password" placeholder="Password" type="password" required>
+            </ion-input>
+          </ion-item>
+          <ion-button expand="block" (click)="loginClick()">Login</ion-button>
         </div>
 
+        <!-- OTP input and verification -->
+        <div *ngIf="otpSent">
+          <ion-input-otp [length]="4" [(ngModel)]="formData.otp"></ion-input-otp>
+
+          <p class="ion-text-center ion-margin-top">
+            OTP sent to {{ formData.mobile }}. Please enter the OTP {{formData.otp}}.
+          </p>
+          <p class="ion-text-center ion-margin-top">
+            OTP expires in: {{ otpTimer }} seconds
+          </p>
+          <ion-button expand="block" (click)="verifyOtp()">Verify OTP</ion-button>
+        </div>
       </div>
 
       <ion-grid class="ion-margin-top">
@@ -75,5 +60,6 @@
         </ion-row>
       </ion-grid>
     </ion-card-content>
+
   </ion-card>
 </ion-content>

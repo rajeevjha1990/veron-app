@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { Router, NavigationStart } from '@angular/router';
 import { SHARED_IONIC_MODULES } from './shared/shared.ionic';
 import { register } from 'swiper/element/bundle';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Platform } from '@ionic/angular';
 
 register();
 
@@ -29,7 +31,8 @@ export class AppComponent {
     private userServ: UserService,
     private navCtrl: NavController,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private platform: Platform
   ) {
     this.userServ.user.subscribe(async u => {
       this.user = u;
@@ -38,6 +41,11 @@ export class AppComponent {
       if (event instanceof NavigationStart) {
         this.menuCtrl.close('main-menu');
       }
+    });
+    this.platform.ready().then(() => {
+      StatusBar.setOverlaysWebView({ overlay: false });
+      StatusBar.setStyle({ style: Style.Dark });
+      StatusBar.setBackgroundColor({ color: '#ffffff' });
     });
 
   }

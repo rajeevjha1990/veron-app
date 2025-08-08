@@ -14,7 +14,6 @@ export class UserService {
   public userObj = new User();
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(this.userObj);
   private authkey = '';
-
   constructor(
     private authServ: AuthService,
     private veronHttp: RajeevhttpService,
@@ -42,34 +41,25 @@ export class UserService {
     try {
       const url = Constants.USER_API_PATH + 'login';
       const apiResp = await this.veronHttp.post(url, logindata);
-      if (apiResp && apiResp.authkey) {
-        this.authkey = apiResp.authkey;
-        this.veronHttp.authkey = this.authkey;
-        this.authServ.setAuthkey(this.authkey);
-        await this.getUserProfile();
-      }
-
       return apiResp;
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('OTP generation failed:', error);
       throw error;
     }
   }
-  async sendotp(data: { mobile: string }) {
-    const url = Constants.USER_API_PATH + 'send_otp';
-    const respData = await this.veronHttp.post(url, data);
-    return respData;
-  }
+
+
   async verifyotp(data: { mobile: string, otp: string }) {
     try {
-
       const url = Constants.USER_API_PATH + 'verify_otp';
       const apiResp = await this.veronHttp.post(url, data);
       if (apiResp && apiResp.authkey) {
         this.authkey = apiResp.authkey;
         this.veronHttp.authkey = this.authkey;
         this.authServ.setAuthkey(this.authkey);
+        localStorage.setItem('auth_token', apiResp.token);
         await this.getUserProfile();
+
       }
       return apiResp;
     } catch (error) {
@@ -77,11 +67,42 @@ export class UserService {
       throw error;
     }
   }
+
   async logout() {
-    this.authServ.clear();
-    this.userObj = new User();
-    this.user.next(this.userObj);
+    const token = localStorage.getItem('auth_token');
+    console.log('Token before logout:', token);
+    if (!token) return;
+    const url = Constants.USER_API_PATH + 'logout';
+    try {
+      const apiResp: any = await this.veronHttp.post(
+        url,
+        {},
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      );
+
+      console.log('Logout response:', apiResp);
+
+      // ✅ Check response from server before clearing localStorage
+      if (apiResp) {
+        this.authServ.clear();
+        this.userObj = new User();
+        this.user.next(this.userObj);
+        localStorage.removeItem('auth_token');
+        localStorage.clear();
+      } else {
+        console.warn('Logout failed on server, token not cleared');
+      }
+
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   }
+
+
 
   async getUserProfile() {
     if (!this.userObj.consumer_name || this.userObj.consumer_name.length === 0) {

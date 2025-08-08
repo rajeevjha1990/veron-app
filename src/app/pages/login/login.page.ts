@@ -18,8 +18,10 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   formData = {
-    email: '',
-    password: ''
+    mobile: '',
+    password: '',
+    otp: ''
+
   };
   loginMode: string = 'password';
   otpSent: boolean = false;
@@ -29,6 +31,8 @@ export class LoginPage implements OnInit {
   };
   timer: number = 0;
   otpTimer: any
+  otpInterval: any;
+
   constructor(
     private userServ: UserService,
     private router: Router,
@@ -38,67 +42,68 @@ export class LoginPage implements OnInit {
   ngOnInit() { }
 
   async loginClick() {
-    if (!this.formData.email || this.formData.email.trim() === '') {
-      await this.showAlert('Email is required.');
+    const mobile = this.formData.mobile?.toString().trim();
+    const password = this.formData.password?.trim();
+
+    if (!mobile || !password) {
+      this.showAlert('Mobile number and password are required.');
       return;
     }
 
-    if (!this.formData.password || this.formData.password.trim() === '') {
-      await this.showAlert('Password is required.');
+    const mobilePattern = /^[6-9]\d{9}$/;
+    if (!mobilePattern.test(mobile)) {
+      this.showAlert('Please enter a valid 10-digit mobile number.');
       return;
     }
-
-    const resp = await this.userServ.login(this.formData);
-    if (resp && resp.authkey) {
-      this.router.navigate(['/home']);
-    } else {
-      await this.showAlert('Login failed. Invalid credentials.');
+    if (password.length < 4) {
+      this.showAlert('Password must be at least 4 characters.');
+      return;
     }
+    try {
+      const resp = await this.userServ.login({ mobile, password });
+      if (resp && resp.expiryTime) {
+        this.formData.otp = resp.generatedotp;
+        this.otpSent = true;
+        this.startOtpTimer(resp.expiryTime);
+      }
+    } catch (err: any) {
+      const errorMsg = err.error?.message || err.error?.err || 'Login failed. Please try again.';
+      this.showAlert(errorMsg);
+    }
+  }
+
+  startOtpTimer(expiryTimeStr: string) {
+    const expiryTime = new Date(expiryTimeStr).getTime();
+    const now = Date.now();
+    this.otpTimer = Math.max(Math.floor((expiryTime - now) / 1000), 0);
+    console.log(this.otpTimer)
+    if (this.otpInterval) clearInterval(this.otpInterval);
+    this.otpInterval = setInterval(() => {
+      if (this.otpTimer > 0) {
+        console.log(this.otpTimer);
+        this.otpTimer--;
+      } else {
+        clearInterval(this.otpInterval);
+      }
+    }, 1000);
   }
 
   async showAlert(message: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Validation Error',
+      header: 'Alert',
       message,
       buttons: ['OK']
     });
     await alert.present();
   }
-
-  async sendOtp() {
-    const resp = await this.userServ.sendotp(this.otpData);
-    if (resp && resp.otp_expires_at) {
-      this.otpSent = true;
-      const expiryTime = new Date(resp.otp_expires_at).getTime();
-      const now = Date.now();
-      const timeLeft = Math.floor((expiryTime - now) / 1000);
-      this.timer = Math.max(timeLeft, 0);
-
-
-      this.timer = timeLeft > 0 ? timeLeft : 0;
-
-      if (this.otpTimer) clearInterval(this.otpTimer);
-
-      this.otpTimer = setInterval(() => {
-        if (this.timer > 0) {
-          this.timer--;
-        } else {
-          clearInterval(this.otpTimer);
-          this.otpSent = false;
-        }
-      }, 1000);
-    } else {
-      setTimeout(() => {
-        this.router.navigate(['/signup']);
-      }, 2000);
-
-    }
-  }
   async verifyOtp() {
+    this.otpData.mobile = this.formData.mobile;
+    this.otpData.otp = this.formData.otp;
     const resp = await this.userServ.verifyotp(this.otpData);
     if (resp && resp.authkey) {
       this.router.navigate(['/home']);
     }
   }
+
 
 }

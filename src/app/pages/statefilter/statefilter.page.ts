@@ -24,7 +24,7 @@ export class StatefilterPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.states = await this.pubServ.getStates();
+    this.states = await this.pubServ.getCircles();
     this.filteredStates = [...this.states];
   }
   async filterStates() {

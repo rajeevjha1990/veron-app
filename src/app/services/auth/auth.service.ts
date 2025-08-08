@@ -5,7 +5,7 @@ import { StorageService } from '../storage/storage.service';
   providedIn: 'root'
 })
 export class AuthService {
-   private authkey = '';
+  private authkey = '';
   constructor(
     private storageServ: StorageService
   ) {
@@ -18,14 +18,14 @@ export class AuthService {
   }
   async getAuthkey() {
     if (!this.authkey) {
-      // console.log('getting authkey from this.storageServ');
+      // 'getting authkey from this.storageServ');
       this.authkey = await this.storageServ.get('Authkey');
     }
-    // console.log('Authkey: ', this.authkey);
+    // 'Authkey: ', this.authkey);
     return this.authkey;
   }
   async clear() {
-    // console.log('clearing this.storageServ');
+    // 'clearing this.storageServ');
     await this.storageServ.clear();
     this.authkey = '';
   }
@@ -35,7 +35,7 @@ export class AuthService {
   // }
   // async keys() {
   //   const { keys } = await this.storageServ.keys();
-  //   console.log('Got keys: ', keys);
+  //   'Got keys: ', keys);
   // }
 
 

@@ -5,19 +5,27 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding" #content>
-  <h3 style="margin-left: 15px;">Select Plan</h3>
   <ion-card>
     <ion-card-header>
-      <ion-card-title></ion-card-title>
+      <ion-card-title>
+        {{formData.mobile}}
+      </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col size="12">
+          <ion-col size="8">
             <ion-item>
-              <ion-input type="number" [(ngModel)]="formData.mobile" name="mobile"
-                placeholder="Enter mobile number"></ion-input>
+              <ion-input type="number" [(ngModel)]="formData.amount" name="mobile" placeholder="Enter Amount"
+                (ionInput)="validateAmount()"></ion-input>
             </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button style="margin-top: 15px;" size="small" (click)="goToSummary()"
+              *ngIf="formData.amount && formData.amount > 0">
+              Next
+            </ion-button>
+
           </ion-col>
         </ion-row>
       </ion-grid>

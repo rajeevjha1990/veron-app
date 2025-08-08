@@ -38,7 +38,7 @@ export class RajeevhttpService {
     this.authkey = await this.authServ.getAuthkey();
   }
 
-  async post(url: string, data: any, showLoading = true, datatype = "urlencoded") {
+  async post(url: string, data: any, options: any = {}, showLoading = true, datatype = "urlencoded") {
     this.i++;
     const li = this.i;
 
@@ -70,9 +70,10 @@ export class RajeevhttpService {
     if (!this.authkey) {
       await this.init();
     }
-
+    let token = localStorage.getItem('auth_token') || '';
     let headers = new HttpHeaders({
       'Source': 'app',
+      'Authorization': `Bearer ${token}`,
       'VeronAuthkey': this.authkey || ''
     });
 
@@ -118,7 +119,7 @@ export class RajeevhttpService {
           this.presentAlert('API Not Found');
           break;
         case 401:
-          this.presentAlert('Authorization Error', 'User not registered');
+          this.presentAlert('Authorization Error', 'Mobile number not registered');
           this.authServ.clear();
           this.navCtrl.navigateRoot('/');
           break;
@@ -155,7 +156,7 @@ export class RajeevhttpService {
     if (!title) {
       const lcMsg = (msg || status).toLowerCase();
       if (lcMsg.includes('not available')) {
-        title = 'Book Unavailable';
+        title = 'Coupon Unavailable';
       } else if (lcMsg.includes('authorization')) {
         title = 'Authorization Error';
       } else if (lcMsg.includes('required')) {
@@ -188,7 +189,9 @@ export class RajeevhttpService {
       return;
     }
 
-    const headers = new HttpHeaders().set('VeronAuthkey', this.authkey);
+    const headers = new HttpHeaders()
+      .set('VeronAuthkey', this.authkey)
+      .set('Authorization', `Bearer ${localStorage.getItem('auth_token') || ''}`);
     const params = new HttpParams({ fromObject: data });
 
     this.http.get(this.BASE_API_URL + url, { headers, params, responseType: 'blob' }).subscribe(

@@ -27,7 +27,7 @@ export class PlanListPage implements OnInit {
     mobile: '',
     operator: '',
     circle: '',
-    amount: '',
+    amount: 0,
     state_id: 0
   };
   plantypes: any[] = [];
@@ -38,7 +38,7 @@ export class PlanListPage implements OnInit {
   circles: any[] = [];
   selectedPlan: any = {}
   swiper: any;
-
+  plan: any = '';
   constructor(
     private storServ: StorageService,
     private pubServ: PubService,
@@ -82,6 +82,7 @@ export class PlanListPage implements OnInit {
     }
   }
   selectPlan(plan: any) {
+
     this.formData.amount = plan.price;
     this.selectedPlan = plan
     setTimeout(() => {
@@ -135,6 +136,11 @@ export class PlanListPage implements OnInit {
         clickable: true,
       },
     });
+  }
+  validateAmount() {
+    if (this.formData.amount < 0) {
+      this.formData.amount = 0;
+    }
   }
 
 }

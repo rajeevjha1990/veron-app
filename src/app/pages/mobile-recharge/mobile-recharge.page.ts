@@ -46,7 +46,7 @@ export class MobileRechargePage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data?.state) {
       this.formData.circle = data.state.state_name;
-      this.formData.state_id = data.state.id;
+      this.formData.state_id = data.state.state_code;
     }
   }
 
@@ -82,4 +82,11 @@ export class MobileRechargePage implements OnInit {
     });
     await alert.present();
   }
+  validateMobile(event: any) {
+    const input = event.target.value || '';
+    const numericOnly = input.replace(/[^0-9]/g, '').slice(0, 10);
+    this.formData.mobile = numericOnly;
+  }
+
+
 }
