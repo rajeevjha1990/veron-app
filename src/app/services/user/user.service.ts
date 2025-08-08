@@ -38,14 +38,9 @@ export class UserService {
   }
 
   async login(logindata: any) {
-    try {
-      const url = Constants.USER_API_PATH + 'login';
-      const apiResp = await this.veronHttp.post(url, logindata);
-      return apiResp;
-    } catch (error) {
-      console.error('OTP generation failed:', error);
-      throw error;
-    }
+    const url = Constants.USER_API_PATH + 'login';
+    const apiResp = await this.veronHttp.post(url, logindata);
+    return apiResp;
   }
 
 
@@ -83,10 +78,6 @@ export class UserService {
           }
         }
       );
-
-      console.log('Logout response:', apiResp);
-
-      // ✅ Check response from server before clearing localStorage
       if (apiResp) {
         this.authServ.clear();
         this.userObj = new User();
@@ -147,6 +138,7 @@ export class UserService {
   async consumerRegistration(userdata: any) {
     const url = Constants.USER_API_PATH + 'consumer_register';
     const apiResp = await this.veronHttp.post(url, userdata);
+    console.log(apiResp);
     return apiResp;
   }
   async allusers() {
@@ -199,5 +191,23 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, orderData);
     return apiResp;
   }
-
+  async consumerRescharges() {
+    const url = Constants.CONSUMER_API_PATH + 'recharge_list';
+    const respData = await this.veronHttp.post(url, {});
+    if (respData) {
+      return respData.consumerallrecharges;
+    } else {
+      return []
+    }
+  }
+  async orderReciept(orderId: any) {
+    const url = Constants.CONSUMER_API_PATH + 'receiptPDF/' + orderId;
+    const respData = await this.veronHttp.downloadFile(url, {});
+    return respData;
+  }
+  async verifyRegistrationOtp(data: any) {
+    const url = Constants.USER_API_PATH + 'registration_verification';
+    const apiResp = await this.veronHttp.post(url, data);
+    return apiResp;
+  }
 }

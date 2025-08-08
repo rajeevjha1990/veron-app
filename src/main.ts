@@ -35,7 +35,8 @@ import {
   walletOutline,
   calendarNumberOutline,
   cashOutline,
-  calendarOutline
+  calendarOutline,
+  documentOutline
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
@@ -72,7 +73,8 @@ addIcons({
   'card-outline': cardOutline,
   'wallet-outline': walletOutline,
   'calendar-outline': calendarOutline,
-  'cash-outline': cashOutline
+  'cash-outline': cashOutline,
+  'document-outline': documentOutline
 
 });
 

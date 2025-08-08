@@ -16,6 +16,10 @@ import { AlertController } from '@ionic/angular';
 export class SignupPage implements OnInit {
   formData: any = {}
   agreedToTerms: boolean = false;
+  showOtpInput: boolean = false;
+  otpCode: string = '';
+  mobileForVerification: string = '';
+  otpData: any = {}
   constructor(
     private userServ: UserService,
     private navCtrl: NavController,
@@ -23,16 +27,17 @@ export class SignupPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
   async newRegistration() {
     if (!this.formData.consumer_name || this.formData.consumer_name.trim() === '') {
       await this.showAlert('Name is required.');
       return;
     }
-    if (!this.formData.email || this.formData.email.trim() === '') {
-      await this.showAlert('Email is required.');
-      return;
-    }
+    // if (!this.formData.email || this.formData.email.trim() === '') {
+    //   await this.showAlert('Email is required.');
+    //   return;
+    // }
     if (!this.formData.mobile_no) {
       await this.showAlert('Mobile number is required.');
       return;
@@ -42,9 +47,13 @@ export class SignupPage implements OnInit {
       return;
     }
     const resp = await this.userServ.consumerRegistration(this.formData);
-    if (resp && resp.status === 200) {
-      this.navCtrl.navigateForward('/login');
+    if (resp?.redirect === 'login') {
+      this.navCtrl.navigateForward(['/login']);
+      return;
     }
+    this.otpData.mobile = resp.mobile || this.formData.mobile_no;
+    this.otpData.otp = resp.otp || '';
+    this.showOtpInput = true;
   }
   async showAlert(message: string) {
     const alert = await this.alertCtrl.create({
@@ -54,4 +63,22 @@ export class SignupPage implements OnInit {
     });
     await alert.present();
   }
+  async verifyOtp() {
+    const code = String(this.otpCode || '').trim();
+
+    if (code.length < 4) {
+      await this.showAlert('Please enter a valid OTP.');
+      return;
+    }
+
+    this.otpData.otp = code;
+    const verifyResp = await this.userServ.verifyRegistrationOtp(this.otpData);
+    if (verifyResp) {
+      this.navCtrl.navigateForward('/login');
+    } else {
+      await this.showAlert('Invalid OTP. Please try again.');
+    }
+  }
+
+
 }

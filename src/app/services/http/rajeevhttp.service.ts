@@ -103,13 +103,22 @@ export class RajeevhttpService {
           this.authServ.setAuthkey(respBody.VeronAuthkey);
           this.authkey = respBody.VeronAuthkey;
         }
-
         resp = respBody;
       } else {
         this.presentAlert('Code: ' + httpResp.status, 'Unexpected status code');
       }
+
     } catch (httpErrResp: any) {
       const status = httpErrResp.status;
+      console.log(status);
+      let error = 'Unidentified error, veron team.';
+      try {
+        error = httpErrResp.error?.err || httpErrResp.error?.msg || error;
+      } catch { }
+
+      if (typeof error === 'object') {
+        error = Object.values(error).join('\n');
+      }
 
       switch (status) {
         case 500:
@@ -118,13 +127,14 @@ export class RajeevhttpService {
         case 404:
           this.presentAlert('API Not Found');
           break;
+
         case 401:
           this.presentAlert('Authorization Error', 'Mobile number not registered');
           this.authServ.clear();
           this.navCtrl.navigateRoot('/');
           break;
         default:
-          let error = 'Unidentified error, contact developer.';
+          let error = 'Unidentified error, veron team.';
           try {
             error = httpErrResp.error?.err || httpErrResp.error?.msg || error;;
           } catch { }
@@ -183,15 +193,14 @@ export class RajeevhttpService {
       setTimeout(() => alert.dismiss(), 2000); // auto-close for alert
     }
   }
+
   async downloadFile(url: string, data: any = {}) {
     if (!navigator.onLine) {
       this.presentAlert('No Internet Connection', 'Please check your internet connection and try again.');
       return;
     }
 
-    const headers = new HttpHeaders()
-      .set('VeronAuthkey', this.authkey)
-      .set('Authorization', `Bearer ${localStorage.getItem('auth_token') || ''}`);
+    const headers = new HttpHeaders().set('VeronAuthkey', this.authkey);
     const params = new HttpParams({ fromObject: data });
 
     this.http.get(this.BASE_API_URL + url, { headers, params, responseType: 'blob' }).subscribe(

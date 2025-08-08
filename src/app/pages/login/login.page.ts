@@ -61,10 +61,20 @@ export class LoginPage implements OnInit {
     }
     try {
       const resp = await this.userServ.login({ mobile, password });
+      console.log(resp);
       if (resp && resp.expiryTime) {
         this.formData.otp = resp.generatedotp;
         this.otpSent = true;
         this.startOtpTimer(resp.expiryTime);
+      } else {
+        this.router.navigate(['/signup'], {
+          state: {
+            consumer_name: resp.consumer_name,
+            mobile_no: resp.mobile_no,
+            email: resp.email
+          }
+        });
+
       }
     } catch (err: any) {
       const errorMsg = err.error?.message || err.error?.err || 'Login failed. Please try again.';
@@ -76,11 +86,9 @@ export class LoginPage implements OnInit {
     const expiryTime = new Date(expiryTimeStr).getTime();
     const now = Date.now();
     this.otpTimer = Math.max(Math.floor((expiryTime - now) / 1000), 0);
-    console.log(this.otpTimer)
     if (this.otpInterval) clearInterval(this.otpInterval);
     this.otpInterval = setInterval(() => {
       if (this.otpTimer > 0) {
-        console.log(this.otpTimer);
         this.otpTimer--;
       } else {
         clearInterval(this.otpInterval);

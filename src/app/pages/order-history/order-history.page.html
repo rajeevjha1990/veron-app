@@ -4,10 +4,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Order History</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list *ngFor="let order of consumerrecharges">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          ₹{{ order.amount }} -
+          <ion-label [color]="order.status == '1' ? 'success' : 'danger'"> {{ order.status == '1' ? 'Success' : 'Failed'
+            }}</ion-label>
+          <ion-buttons slot="end">
+            <ion-button fill="clear" color="primary">
+              <ion-icon name="document-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ order.recharge_time | date:'medium' }}
+        </ion-card-subtitle>
+
+      </ion-card-header>
+
+      <ion-card-content>
+        <p><strong>Mobile:</strong> {{ order.mobile }}</p>
+        <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+        <p><strong>Mode:</strong> {{ order.mode }}</p>
+        <p><strong>Payment Gateway:</strong> {{ order.pg_type || 'N/A' }}</p>
+      </ion-card-content>
+
+      <ion-item lines="none">
+        <ion-button fill="clear" slot="end" size="medium">
+          <a [href]="veronHttp.BASE_URL + 'api/auth/receiptPDF/' + order.order_id+'/'+order.consumer_id"
+            target="_blank">
+            <ion-icon name="document-outline" slot="icon-only"></ion-icon>
+          </a>
+        </ion-button>
+      </ion-item>
+    </ion-card>
+  </ion-list>
 </ion-content>

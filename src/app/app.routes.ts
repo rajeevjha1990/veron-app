@@ -31,10 +31,6 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/ordes/ordes.page').then(m => m.OrdesPage)
   },
   {
-    path: 'orders',
-    loadComponent: () => import('./pages/orders/orders.page').then(m => m.OrdersPage)
-  },
-  {
     path: 'favorites',
     loadComponent: () => import('./pages/favorites/favorites.page').then(m => m.FavoritesPage)
   },
@@ -85,11 +81,12 @@ export const routes: Routes = [
   },
   {
     path: 'coupon-code',
-    loadComponent: () => import('./pages/coupon-code/coupon-code.page').then( m => m.CouponCodePage)
+    loadComponent: () => import('./pages/coupon-code/coupon-code.page').then(m => m.CouponCodePage)
   },
   {
     path: 'coupon-order',
-    loadComponent: () => import('./pages/coupon-order/coupon-order.page').then( m => m.CouponOrderPage)
+    loadComponent: () => import('./pages/coupon-order/coupon-order.page').then(m => m.CouponOrderPage)
   },
+
 
 ];
