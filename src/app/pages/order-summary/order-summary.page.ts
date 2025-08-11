@@ -1,4 +1,4 @@
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,12 +14,14 @@ import { UserService } from 'src/app/services/user/user.service';
   imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule]
 })
 export class OrderSummaryPage implements OnInit {
-  orderData: any = {}
+  orderData: any = {};
+
   constructor(
     private router: Router,
     private alertCtrl: AlertController,
     private userServ: UserService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -29,23 +31,40 @@ export class OrderSummaryPage implements OnInit {
       console.log('Received Order Data:', this.orderData);
     }
   }
+
+  async presentBubbleLoader() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...\nDo not go back or cancel',
+      spinner: 'bubbles',
+      cssClass: 'custom-bubble-loader',
+      backdropDismiss: false
+    });
+    await loading.present();
+    return loading;
+  }
+
   async payWithCoupon(mode: 'coupon' | 'wallet' | 'online') {
     const alert = await this.alertCtrl.create({
       header: 'Confirm Payment',
       message: 'Are you sure you want to pay via your coupon wallet?',
       buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary'
-        },
+        { text: 'Cancel', role: 'cancel', cssClass: 'secondary' },
         {
           text: 'Yes, Pay Now',
           handler: async () => {
             this.orderData.payMode = mode;
-            const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData);
-            if (resp) {
-              this.navCtrl.navigateForward('/order-history');
+
+            const loader = await this.presentBubbleLoader();
+
+            try {
+              const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData, false);
+              await loader.dismiss();
+              if (resp) {
+                this.navCtrl.navigateForward('/order-history');
+              }
+            } catch (e) {
+              await loader.dismiss();
+              this.showError('Payment failed, please try again.');
             }
           }
         }
@@ -54,5 +73,12 @@ export class OrderSummaryPage implements OnInit {
     await alert.present();
   }
 
-
+  async showError(msg: string) {
+    const errorAlert = await this.alertCtrl.create({
+      header: 'Error',
+      message: msg,
+      buttons: ['OK']
+    });
+    await errorAlert.present();
+  }
 }

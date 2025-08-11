@@ -4,6 +4,9 @@ import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 import { UserService } from 'src/app/services/user/user.service';
 import { FormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { Device } from '@capacitor/device';
+import { Geolocation } from '@capacitor/geolocation';
+import { Capacitor } from '@capacitor/core'; // add this import at the top
 
 @Component({
   selector: 'app-login',
@@ -21,7 +24,6 @@ export class LoginPage implements OnInit {
     mobile: '',
     password: '',
     otp: ''
-
   };
   loginMode: string = 'password';
   otpSent: boolean = false;
@@ -41,6 +43,58 @@ export class LoginPage implements OnInit {
 
   ngOnInit() { }
 
+  async getDeviceAndLocationInfo() {
+    try {
+      const platform = Capacitor.getPlatform();
+
+      // Request permission only if not web
+      if (platform !== 'web') {
+        await Geolocation.requestPermissions();
+      }
+
+      const device = await Device.getInfo();
+
+      let location;
+
+      if (platform === 'web') {
+        // Use browser native geolocation on web
+        location = await new Promise<GeolocationPosition>((resolve, reject) => {
+          if (!navigator.geolocation) {
+            reject(new Error('Geolocation not supported by browser'));
+          } else {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              enableHighAccuracy: true,
+              timeout: 30000,
+              maximumAge: 0
+            });
+          }
+        });
+      } else {
+        // Use Capacitor geolocation on native platforms
+        location = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: true,
+          timeout: 30000,
+          maximumAge: 0
+        });
+      }
+
+      if (!location?.coords?.latitude || !location?.coords?.longitude) {
+        throw new Error('No coordinates received');
+      }
+
+      return {
+        device_info: device,
+        location: {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        }
+      };
+    } catch (err) {
+      console.error('Error getting device/location info:', err);
+      return null;
+    }
+  }
+
   async loginClick() {
     const mobile = this.formData.mobile?.toString().trim();
     const password = this.formData.password?.trim();
@@ -59,9 +113,31 @@ export class LoginPage implements OnInit {
       this.showAlert('Password must be at least 4 characters.');
       return;
     }
+
+    const deviceData = await this.getDeviceAndLocationInfo();
+    console.log(deviceData);
+
+    if (!deviceData || !deviceData.location?.latitude) {
+      this.showAlert('Location is required to login. Please enable GPS.');
+      return;
+    }
+    const { model, platform, operatingSystem, osVersion, manufacturer, isVirtual, webViewVersion } = deviceData.device_info;
+    const { latitude, longitude } = deviceData.location;
     try {
-      const resp = await this.userServ.login({ mobile, password });
-      console.log(resp);
+      const resp = await this.userServ.login({
+        mobile,
+        password,
+        model,
+        platform,
+        operatingSystem,
+        osVersion,
+        manufacturer,
+        isVirtual,
+        webViewVersion,
+        latitude,
+        longitude
+      });
+
       if (resp && resp.expiryTime) {
         this.formData.otp = resp.generatedotp;
         this.otpSent = true;
@@ -74,7 +150,6 @@ export class LoginPage implements OnInit {
             email: resp.email
           }
         });
-
       }
     } catch (err: any) {
       const errorMsg = err.error?.message || err.error?.err || 'Login failed. Please try again.';
@@ -104,6 +179,7 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
+
   async verifyOtp() {
     this.otpData.mobile = this.formData.mobile;
     this.otpData.otp = this.formData.otp;
@@ -112,6 +188,4 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-
-
 }
