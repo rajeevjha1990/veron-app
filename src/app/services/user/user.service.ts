@@ -220,4 +220,9 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, data);
     return apiResp;
   }
+  async changePassword(data: any) {
+    const url = Constants.CONSUMER_API_PATH + 'change_password';
+    const apiResp = await this.veronHttp.post(url, data);
+    return apiResp;
+  }
 }

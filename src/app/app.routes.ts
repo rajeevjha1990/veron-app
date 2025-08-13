@@ -95,6 +95,10 @@ export const routes: Routes = [
     path: 'verification-page',
     loadComponent: () => import('./pages/verification-page/verification-page.page').then( m => m.VerificationPagePage)
   },
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./pages/forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+  },
 
 
 
