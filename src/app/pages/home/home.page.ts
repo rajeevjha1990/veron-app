@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 import { CommonModule } from '@angular/common';
+import { User } from 'src/app/data-types/user';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -56,12 +57,20 @@ export class HomePage {
       image: 'assets/ads/add3.jpg', title: 'Earn You', subtitle: 'You get INR 10. You can use these credits to take recharge.'
     }
   ];
+  user: User = new User();
 
   constructor(
     private userService: UserService,
-    private router: NavController
-  ) { }
+    private router: NavController,
+    private userServ: UserService
+  ) {
+    this.userServ.user.subscribe(async u => {
+      this.user = u;
+    });
+    console.log(this.user)
+  }
   async ngOnInit() {
+
     const history = await this.userService.rechargeHistory();
     this.mobilerechargeDatas = history.mobileRecharge;
     this.electricityDatas = history.electricityRecharge;

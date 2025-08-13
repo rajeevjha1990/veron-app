@@ -13,4 +13,7 @@ export class User {
     pancard: string = '';
     pincode: string = '';
     image: string = '';
+    virtual_balance: string = '';
+    coupon_limit: string = '';
+    wallet: string = '';
 };

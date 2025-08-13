@@ -24,9 +24,13 @@ export class UserService {
   async init() {
     this.authkey = await this.getAuthKey();
     if (this.authkey) {
-      await this.getUserProfile();
-      this.userObj.loggedIn = true;
-      this.user.next(this.userObj);
+      const user = await this.getUserProfileFromServer();
+      if (user && user.id) {
+        user.loggedIn = true;
+        this.userObj = user;
+        this.user.next(this.userObj);
+
+      }
     }
   }
 
@@ -121,14 +125,15 @@ export class UserService {
           state: respData.state || '',
           aadhaar_no: respData.aadhaar_no || '',
           pancard: respData.pancard || '',
-          pincode: respData.pincode || ''
+          pincode: respData.pincode || '',
+          virtual_balance: respData.virtual_balance || '',
+          coupon_limit: respData.coupon_limit || '',
+          wallet: respData.wallet || ''
+
         } as any;
 
         this.user.next(this.userObj);
-      } else {
-        console.warn('Failed to get user profile:', respData);
       }
-
       return this.userObj;
     } catch (error) {
       console.error('Error fetching user profile:', error);

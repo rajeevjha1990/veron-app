@@ -6,13 +6,13 @@
   <ion-item lines="none" (click)="onSelect('coupon')">
     <ion-icon name="card-outline" slot="start"></ion-icon>
     <ion-label class="mylabel">Coupon (s)</ion-label>
-    <div class="amount">0</div>
+    <div class="amount">{{user.coupon_limit}}</div>
   </ion-item>
 
   <ion-item lines="none" (click)="onSelect('wallet')">
     <ion-icon name="wallet-outline" slot="start"></ion-icon>
     <ion-label class="mylabel">Wallet</ion-label>
-    <div class="amount">₹ 0</div>
+    <div class="amount">₹ {{user.wallet}}</div>
   </ion-item>
 
   <ion-item lines="none" (click)="onSelect('balance')">
