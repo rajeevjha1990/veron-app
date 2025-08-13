@@ -1,55 +1,73 @@
-<ion-menu menuId="main-menu" contentId="main-content" side="start">
-  <ion-header class="custom-header">
-    <ion-toolbar color="primary">
-      <ion-title>Menu</ion-title>
+<ion-menu [type]="menuType" menuId="main-menu" contentId="main-content" side="start">
+  <ion-header>
+    <ion-toolbar color="">
+      <ion-title>
+        <img src="assets/logo.png" alt="Company Logo" style="max-width: 50%;">
+      </ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-content>
     <ion-list>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigateAndCloseMenu('/home')">
+          <ion-icon slot="start" name="home-outline"></ion-icon>
+          Dashboard
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigateAndCloseMenu('/order-history')">
+          <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+          Recharge
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigateAndCloseMenu('/order-history')">
+          <ion-icon slot="start" name="flash-outline"></ion-icon>
+          Electricity Bill
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigateAndCloseMenu('/favorites')">
+          <ion-icon slot="start" name="heart-outline"></ion-icon>
+          Favorites
+        </ion-item>
+      </ion-menu-toggle>
 
-      <ion-item (click)="navigateAndCloseMenu('/home')">
-        <ion-icon slot="start" name="home-outline"></ion-icon>
-        Dashboard
-      </ion-item>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigateAndCloseMenu('/change-password')">
+          <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+          Change Password
+        </ion-item>
+      </ion-menu-toggle>
 
-      <ion-accordion-group>
-        <ion-accordion value="first">
-          <ion-item slot="header">
-            <ion-icon slot="start" name="receipt-outline"></ion-icon>
-            <ion-label>Order History</ion-label>
-          </ion-item>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigateAndCloseMenu('/personal-info')">
+          <ion-icon slot="start" name="person-outline"></ion-icon>
+          Personal Information
+        </ion-item>
+      </ion-menu-toggle>
 
-          <ion-item slot="content" (click)="navigateAndCloseMenu('/order-history')">
-            <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
-            <ion-label>Recharge</ion-label>
-          </ion-item>
-
-          <ion-item slot="content">
-            <ion-icon slot="start" name="flash-outline"></ion-icon>
-            <ion-label>Electricity Bill Payment</ion-label>
-          </ion-item>
-        </ion-accordion>
-      </ion-accordion-group>
-
-      <ion-item (click)="navigateAndCloseMenu('/favorites')">
-        <ion-icon slot="start" name="heart-outline"></ion-icon>
-        Favorites
-      </ion-item>
-
-      <ion-item (click)="navigateAndCloseMenu('/change-password')">
-        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-        Change Password
-      </ion-item>
-
-      <ion-item (click)="navigateAndCloseMenu('/personal-info')">
-        <ion-icon slot="start" name="person-outline"></ion-icon>
-        Personal Information
-      </ion-item>
-
-      <ion-item (click)="logout()">
-        <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        Logout
-      </ion-item>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="logout()">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          Logout
+        </ion-item>
+      </ion-menu-toggle>
     </ion-list>
+    <!-- <div class="ads-swiper swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let ad of ads">
+          <ion-card class="ad-card">
+            <img [src]="ad.image" alt="Ad" />
+            <ion-card-header>
+              <ion-card-title>{{ ad.title }}</ion-card-title>
+              <ion-card-subtitle>{{ ad.subtitle }}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div> -->
   </ion-content>
 </ion-menu>

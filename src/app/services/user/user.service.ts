@@ -210,4 +210,9 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, data);
     return apiResp;
   }
+  async checkMobileRegisterorNot(data: any) {
+    const url = Constants.USER_API_PATH + 'check_mobile_registered';
+    const apiResp = await this.veronHttp.post(url, data);
+    return apiResp;
+  }
 }

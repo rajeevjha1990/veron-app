@@ -126,12 +126,13 @@ export class SignupPage implements OnInit {
     };
 
     const resp = await this.userServ.consumerRegistration(registrationPayload);
+
     if (resp?.redirect === 'login') {
       this.navCtrl.navigateForward(['/login']);
       return;
     }
     this.otpData.mobile = resp.mobile || this.formData.mobile_no;
-    this.otpData.otp = resp.otp || '';
+    this.otpData.otp = resp.OTP || '';
     this.showOtpInput = true;
   }
 

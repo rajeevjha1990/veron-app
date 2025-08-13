@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home.page').then(m => m.HomePage),
   },
   {
+    path: 'onboarding',
+    loadComponent: () => import('./pages/onboarding/onboarding.page').then(m => m.OnboardingPage)
+  },
+  {
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage),
   },
@@ -87,6 +91,11 @@ export const routes: Routes = [
     path: 'coupon-order',
     loadComponent: () => import('./pages/coupon-order/coupon-order.page').then(m => m.CouponOrderPage)
   },
+  {
+    path: 'verification-page',
+    loadComponent: () => import('./pages/verification-page/verification-page.page').then( m => m.VerificationPagePage)
+  },
+
 
 
 ];

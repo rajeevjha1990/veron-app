@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
   timer: number = 0;
   otpTimer: any
   otpInterval: any;
+  genratedotpData: any = {}
 
   constructor(
     private userServ: UserService,
@@ -138,19 +139,44 @@ export class LoginPage implements OnInit {
         longitude
       });
 
-      if (resp && resp.expiryTime) {
-        this.formData.otp = resp.generatedotp;
-        this.otpSent = true;
-        this.startOtpTimer(resp.expiryTime);
-      } else {
-        this.router.navigate(['/signup'], {
-          state: {
-            consumer_name: resp.consumer_name,
-            mobile_no: resp.mobile_no,
-            email: resp.email
+      console.log("Status:", resp.status);
+      console.log("Response:", resp);
+
+      // Status ke hisaab se action
+      switch (resp.status) {
+        case 200:
+          if (resp.expiryTime) {
+            this.genratedotpData = resp.generatedotp;
+            this.otpSent = true;
+            this.startOtpTimer(resp.expiryTime);
+          } else {
+            this.router.navigate(['/home'], {
+              state: {
+                consumer_name: resp.consumer_name,
+                mobile_no: resp.mobile_no,
+                email: resp.email
+              }
+            });
           }
-        });
+          break;
+
+        case 401: // Mobile not registered
+          this.router.navigate(['/signup']);
+          break;
+
+        case 405: // Invalid password
+          this.router.navigate(['/login']);
+          break;
+
+        case 403: // Not verified
+          this.router.navigate(['/verification-page']);
+          break;
+
+        default: // Other errors
+          this.showAlert(resp.err || "Login failed. Please try again.");
+          break;
       }
+
     } catch (err: any) {
       const errorMsg = err.error?.message || err.error?.err || 'Login failed. Please try again.';
       this.showAlert(errorMsg);
@@ -188,4 +214,6 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/home']);
     }
   }
+
+
 }

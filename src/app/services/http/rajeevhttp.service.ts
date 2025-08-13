@@ -42,6 +42,7 @@ export class RajeevhttpService {
     this.i++;
     const li = this.i;
 
+    // Loader show kare
     if (showLoading) {
       await this.presentLoading(li);
     }
@@ -50,13 +51,14 @@ export class RajeevhttpService {
     let contentType = '';
     let params: any;
 
+    // Data format handle kare
     switch (datatype) {
       case 'urlencoded':
         contentType = 'application/x-www-form-urlencoded';
         params = new HttpParams({ fromObject: data });
         break;
       case 'multipart':
-        contentType = ''; // Let browser set it
+        contentType = ''; // Let browser set it automatically
         const formData = new FormData();
         Object.entries(data).forEach(([k, v]: any) => formData.append(k, v));
         params = formData;
@@ -67,6 +69,7 @@ export class RajeevhttpService {
         break;
     }
 
+    // Auth key init kare
     if (!this.authkey) {
       await this.init();
     }
@@ -83,34 +86,40 @@ export class RajeevhttpService {
 
     const httpOptions = {
       headers: headers,
-      observe: 'response' as const
+      observe: 'response' as const // Full response including headers & status
     };
 
     let resp: any = {};
 
     try {
+      // API call kare
       const httpResp: any = await this.http.post(url, params, httpOptions).toPromise();
 
       if (httpResp.status === 200) {
         const respBody: any = httpResp.body;
-        respBody.status = 200;
+        respBody.status = 200; // Success status return kare
 
         if (showLoading && respBody.msg) {
           this.presentAlert('', respBody.msg, 'Success');
         }
 
+        // Agar naya auth key mila to set kare
         if (respBody.VeronAuthkey) {
           this.authServ.setAuthkey(respBody.VeronAuthkey);
           this.authkey = respBody.VeronAuthkey;
         }
         resp = respBody;
       } else {
+        // Agar status 200 nahi hai to unexpected code show kare
         this.presentAlert('Code: ' + httpResp.status, 'Unexpected status code');
+        resp = httpResp.body || {};
+        resp.status = httpResp.status;
       }
 
     } catch (httpErrResp: any) {
-      const status = httpErrResp.status;
+      const status = httpErrResp.status; // Server se aaya HTTP status code
       console.log(status);
+
       let error = 'Unidentified error, veron team.';
       try {
         error = httpErrResp.error?.err || httpErrResp.error?.msg || error;
@@ -120,6 +129,7 @@ export class RajeevhttpService {
         error = Object.values(error).join('\n');
       }
 
+      // Status ke hisab se alert show kare
       switch (status) {
         case 500:
           this.presentAlert('Server Error');
@@ -127,32 +137,36 @@ export class RajeevhttpService {
         case 404:
           this.presentAlert('API Not Found');
           break;
-
         case 401:
           this.presentAlert('Authorization Error', 'Mobile number not registered');
           this.authServ.clear();
           this.navCtrl.navigateRoot('/');
           break;
         default:
-          let error = 'Unidentified error, veron team.';
+          let defaultErr = 'Unidentified error, veron team.';
           try {
-            error = httpErrResp.error?.err || httpErrResp.error?.msg || error;;
+            defaultErr = httpErrResp.error?.err || httpErrResp.error?.msg || defaultErr;
           } catch { }
 
-          if (typeof error === 'object') {
-            error = Object.values(error).join('\n');
+          if (typeof defaultErr === 'object') {
+            defaultErr = Object.values(defaultErr).join('\n');
           }
 
-          this.presentAlert(error);
+          this.presentAlert(defaultErr);
           break;
       }
+
+      // Error ka body + status code return kare (important)
+      resp = httpErrResp.error || {};
+      resp.status = status;
     }
 
+    // Loader hide kare
     if (showLoading && this.loadingElements[li]) {
       this.loadingElements[li].dismiss();
     }
 
-    return resp;
+    return resp; // Hamesha status code ke sath resp return kare
   }
 
   async presentLoading(i: number) {

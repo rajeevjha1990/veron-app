@@ -5,7 +5,8 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-card style="margin-top: 50px;">
+
+  <ion-card>
     <ion-card-header>
       <ion-card-title>
         <div class="logo ion-text-center">
@@ -14,7 +15,6 @@
         <h2 class="ion-text-center" style="font-size: 2rem;">Login</h2>
       </ion-card-title>
     </ion-card-header>
-
     <ion-card-content>
       <div>
         <!-- Show Mobile and Password only if OTP is not sent -->
@@ -36,7 +36,7 @@
           <ion-input-otp [length]="4" [(ngModel)]="formData.otp"></ion-input-otp>
 
           <p class="ion-text-center ion-margin-top">
-            OTP sent to {{ formData.mobile }}. Please enter the OTP {{formData.otp}}.
+            OTP sent to {{ formData.mobile }}. Please enter the OTP {{genratedotpData}}.
           </p>
           <p class="ion-text-center ion-margin-top">
             OTP expires in: {{ otpTimer }} seconds
@@ -62,4 +62,5 @@
     </ion-card-content>
 
   </ion-card>
+
 </ion-content>

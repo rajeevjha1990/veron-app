@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,9 +13,11 @@ import { CommonModule } from '@angular/common';
 
   ],
 })
+
 export class HomePage {
   mobilerechargeDatas: any = []
   electricityDatas: any = [];
+  swiper: any;
 
   services = [
     {
@@ -44,6 +45,17 @@ export class HomePage {
       route: '/money-transfer'
     }
   ];
+  ads = [
+    {
+      image: 'assets/ads/add1.jpg', title: 'You Refer Friends', subtitle: 'Share your referral link with friends. They get INR 10.'
+    },
+    {
+      image: 'assets/ads/add2.png', title: 'Your Friends Register', subtitle: 'Your friends Register with using your referral link.'
+    },
+    {
+      image: 'assets/ads/add3.jpg', title: 'Earn You', subtitle: 'You get INR 10. You can use these credits to take recharge.'
+    }
+  ];
 
   constructor(
     private userService: UserService,
@@ -64,4 +76,5 @@ export class HomePage {
   goToPage(route: string) {
     this.router.navigateForward([route]);
   }
+
 }
