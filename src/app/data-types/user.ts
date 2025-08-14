@@ -16,4 +16,5 @@ export class User {
     virtual_balance: string = '';
     coupon_limit: string = '';
     wallet: string = '';
+    coupons: string = '';
 };

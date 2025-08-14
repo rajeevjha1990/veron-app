@@ -54,24 +54,34 @@ export class OrderSummaryPage implements OnInit {
           handler: async () => {
             this.orderData.payMode = mode;
 
-            const loader = await this.presentBubbleLoader();
+            const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData, false);
 
-            try {
-              const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData, false);
-              await loader.dismiss();
-              if (resp) {
+            switch (resp.status) {
+              case 200: //  Success
                 this.navCtrl.navigateForward('/order-history');
-              }
-            } catch (e) {
-              await loader.dismiss();
-              this.showError('Payment failed, please try again.');
+                break;
+
+              case 400: // Insufficient balance / duplicate recharge
+                break;
+
+              case 403: //  Order creation failed
+                break;
+
+              case 409: // Conflict - recent recharge
+                break;
+
+              default: // unknown
+                this.showError(resp.err || resp.msg || 'Unknown error occurred.');
+                break;
             }
           }
         }
       ]
     });
+
     await alert.present();
   }
+
 
   async showError(msg: string) {
     const errorAlert = await this.alertCtrl.create({

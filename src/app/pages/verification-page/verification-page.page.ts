@@ -67,7 +67,7 @@ export class VerificationPagePage implements OnInit {
         this.showOtpInput = false;
         break
       default:
-        this.showAlert(resp.err || "Login failed. Please try again.");
+        this.showAlert(resp.err || "verification failed. Please try again.");
         break;
     }
   }

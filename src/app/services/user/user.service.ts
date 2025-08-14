@@ -225,4 +225,14 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, data);
     return apiResp;
   }
+  async resetpassword(data: any) {
+    const url = Constants.USER_API_PATH + 'reset_password';
+    const apiResp = await this.veronHttp.post(url, data);
+    return apiResp;
+  }
+  async pwdOtpVerification(data: any) {
+    const url = Constants.USER_API_PATH + 'verify_forgot_otp';
+    const apiResp = await this.veronHttp.post(url, data);
+    return apiResp;
+  }
 }

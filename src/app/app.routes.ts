@@ -99,6 +99,10 @@ export const routes: Routes = [
     path: 'forgot-password',
     loadComponent: () => import('./pages/forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
   },
+  {
+    path: 'otp-login',
+    loadComponent: () => import('./pages/otp-login/otp-login.page').then( m => m.OtpLoginPage)
+  },
 
 
 
