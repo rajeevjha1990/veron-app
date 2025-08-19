@@ -93,23 +93,27 @@ export const routes: Routes = [
   },
   {
     path: 'verification-page',
-    loadComponent: () => import('./pages/verification-page/verification-page.page').then( m => m.VerificationPagePage)
+    loadComponent: () => import('./pages/verification-page/verification-page.page').then(m => m.VerificationPagePage)
   },
   {
     path: 'forgot-password',
-    loadComponent: () => import('./pages/forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+    loadComponent: () => import('./pages/forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
   },
   {
     path: 'otp-login',
-    loadComponent: () => import('./pages/otp-login/otp-login.page').then( m => m.OtpLoginPage)
+    loadComponent: () => import('./pages/otp-login/otp-login.page').then(m => m.OtpLoginPage)
   },
   {
     path: 'termcondition',
-    loadComponent: () => import('./pages/termcondition/termcondition.page').then( m => m.TermconditionPage)
+    loadComponent: () => import('./pages/termcondition/termcondition.page').then(m => m.TermconditionPage)
   },
   {
     path: 'privacypolicy',
-    loadComponent: () => import('./pages/privacypolicy/privacypolicy.page').then( m => m.PrivacypolicyPage)
+    loadComponent: () => import('./pages/privacypolicy/privacypolicy.page').then(m => m.PrivacypolicyPage)
+  },
+  {
+    path: 'transaction-details/:orderId',
+    loadComponent: () => import('./pages/transaction-details/transaction-details.page').then(m => m.TransactionDetailsPage)
   },
 
 

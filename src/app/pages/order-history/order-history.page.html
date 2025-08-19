@@ -5,7 +5,49 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-list *ngFor="let order of consumerrecharges">
+  <!-- Mobile Recharge History
+  <ion-label style="margin-left: 15px;">Previous Recharge</ion-label>
+  <ion-card *ngFor="let recharge of mobilerechargeDatas.slice(0, 5)">
+    <ion-card-header>
+      <ion-card-title>{{ recharge.mobile }}</ion-card-title>
+      <ion-card-subtitle class="subtitle-row">
+        <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
+        <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="auto">
+        <ion-button fill="outline" size="small" shape="round" color="primary" (click)="goToMobileRechargeHistory()">
+          View All
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <!-- Electricity Recharge History -->
+  <!-- <ion-label style="margin-left: 15px;">Previous Electricity Bill</ion-label>
+  <ion-card *ngFor="let recharge of electricityDatas.slice(0, 5)">
+    <ion-card-header>
+      <ion-card-title>{{ recharge.consumer_number }}</ion-card-title>
+      <ion-card-subtitle class="subtitle-row">
+        <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
+        <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="auto">
+        <ion-button fill="outline" size="small" shape="round" color="primary"
+          (click)="goToElectricityRechargeHistory()">
+          View All
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <!-- <ion-list *ngFor="let order of consumerrecharges">
     <ion-card>
       <ion-card-header>
         <ion-card-title>
@@ -40,5 +82,29 @@
         </ion-button>
       </ion-item>
     </ion-card>
-  </ion-list>
+  </ion-list> -->
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Transaction History</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngFor="let transaction of transactions">
+    <ion-card-header>
+      <ion-card-title>
+        Date : {{transaction.recharge_time | date: 'shortTime'}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{transaction.order_id}} <br>{{transaction.pg_type}} <br>{{transaction.amount}}<br>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content routerLink="/transaction-details/{{transaction.id}}">
+      <ion-item lines="none">
+        <ion-label></ion-label>
+        <ion-badge [color]="transaction.status === 'success' ? 'success' : 'danger'">
+          {{ transaction.status }}
+        </ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

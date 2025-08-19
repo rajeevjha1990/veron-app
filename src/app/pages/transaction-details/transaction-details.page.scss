@@ -1,0 +1,29 @@
+.txn-top {
+    margin-bottom: 16px;
+
+    .operator-logo {
+        width: 64px;
+        height: 64px;
+        margin: 12px auto;
+        border-radius: 50%;
+    }
+
+    .amount {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 8px 0;
+    }
+
+    .status-text {
+        font-size: 16px;
+        font-weight: 500;
+        margin-top: 8px;
+        color: var(--ion-color-success);
+    }
+
+    .txn-time {
+        font-size: 14px;
+        color: var(--ion-color-medium);
+        margin-top: 2px;
+    }
+}

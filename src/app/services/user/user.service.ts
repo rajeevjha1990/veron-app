@@ -237,4 +237,13 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, data);
     return apiResp;
   }
+  async transactionHistory() {
+    const url = Constants.CONSUMER_API_PATH + 'transaction_history';
+    const respData = await this.veronHttp.post(url, {});
+    if (respData) {
+      return respData.transactions;
+    } else {
+      return []
+    }
+  }
 }

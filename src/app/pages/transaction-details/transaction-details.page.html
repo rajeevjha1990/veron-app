@@ -1,0 +1,86 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Transaction Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- Top Summary -->
+  <div class="txn-top ion-text-center">
+    <h2>{{ transactionDetails.pa_name }}</h2>
+    <h1 class="amount">₹{{ transactionDetails.amount }}</h1>
+
+
+
+    <p class="status-text">
+      <ion-icon name="checkmark-circle" color="success"></ion-icon>
+      {{ transactionDetails.status }}
+    </p>
+    <p class="txn-time">
+      {{ transactionDetails.recharge_time | date:'MMM d, yyyy h:mm a' }}
+    </p>
+  </div>
+
+  <!-- Timeline -->
+  <ion-card>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
+          <ion-label>
+            <strong>Payment started</strong>
+            <p>{{ transactionDetails.created_at | date:'MMM d, yyyy h:mm a' }}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
+          <ion-label>
+            <strong>Pay intermediary</strong>
+            <p>{{ transactionDetails.pg_type }}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
+          <ion-label>
+            <strong>Recharge processed</strong>
+            <p>Recharge reflected in your account</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Transaction Details -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Transaction Info</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label>Order ID</ion-label>
+          <ion-note slot="end">{{ transactionDetails.order_id }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Transaction ID</ion-label>
+          <ion-note slot="end">{{ transactionDetails.txid }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Consumer ID</ion-label>
+          <ion-note slot="end">{{ transactionDetails.consumer_id }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mobile</ion-label>
+          <ion-note slot="end">{{ transactionDetails.mobile }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mode</ion-label>
+          <ion-note slot="end">{{ transactionDetails.mode }}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
