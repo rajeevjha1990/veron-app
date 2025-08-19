@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding  intro-slides">
 
   <!-- If not logged in -->
   <ng-container *ngIf="user?.id; else notLoggedIn">
@@ -26,9 +26,9 @@
     <!-- Service Shortcuts -->
     <ion-grid>
       <ion-row>
-        <ion-col size="3" class="service-button" *ngFor="let service of services">
+        <ion-col size="4" size-sm="3" size-md="2" class="service-button" *ngFor="let service of services">
           <div class="icon-box" (click)="goToPage(service.route)">
-            <ion-icon [name]="service.icon" class="small-icon"></ion-icon>
+            <ion-icon [name]="service.icon"></ion-icon>
           </div>
           <div class="small-text">
             <div>{{ service.line1 }}</div>
@@ -38,7 +38,22 @@
       </ion-row>
     </ion-grid>
 
-    <!-- Mobile Recharge History -->
+    <!-- Ads Swiper -->
+    <div class="ads-swiper swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let ad of slides">
+          <ion-card class="ad-card">
+            <!-- <img [src]="ad.image" alt="Ad" /> -->
+            <ion-card-header>
+              <ion-card-title>{{ ad.title }}</ion-card-title>
+              <ion-card-subtitle>{{ ad.subtitle }}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Recharge History
     <ion-label style="margin-left: 15px;">Previous Recharge</ion-label>
     <ion-card *ngFor="let recharge of mobilerechargeDatas.slice(0, 5)">
       <ion-card-header>
@@ -57,11 +72,11 @@
           </ion-button>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
 
     <!-- Electricity Recharge History -->
-    <ion-label style="margin-left: 15px;">Previous Electricity Bill</ion-label>
-    <ion-card *ngFor="let recharge of electricityDatas.slice(0, 5)">
+    <!-- <ion-label style="margin-left: 15px;">Previous Electricity Bill</ion-label> -->
+    <!-- <ion-card *ngFor="let recharge of electricityDatas.slice(0, 5)">
       <ion-card-header>
         <ion-card-title>{{ recharge.consumer_number }}</ion-card-title>
         <ion-card-subtitle class="subtitle-row">
@@ -69,8 +84,8 @@
           <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
         </ion-card-subtitle>
       </ion-card-header>
-    </ion-card>
-    <ion-grid>
+    </ion-card> -->
+    <!-- <ion-grid>
       <ion-row class="ion-justify-content-end">
         <ion-col size="auto">
           <ion-button fill="outline" size="small" shape="round" color="primary"
@@ -79,7 +94,7 @@
           </ion-button>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
   </ng-container>
 
   <!-- Not Logged In Template -->

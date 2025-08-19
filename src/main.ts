@@ -37,6 +37,8 @@ import {
   cashOutline,
   calendarOutline,
   documentOutline,
+  tvOutline,
+  giftOutline,
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
@@ -75,8 +77,10 @@ addIcons({
   'calendar-outline': calendarOutline,
   'cash-outline': cashOutline,
   'document-outline': documentOutline,
-  'close-outline': closeOutline
-
+  'close-outline': closeOutline,
+  'tv-outline': tvOutline,
+  'car-outline': cardOutline,
+  'gift-outline': giftOutline,
 });
 
 bootstrapApplication(AppComponent, appConfig)
