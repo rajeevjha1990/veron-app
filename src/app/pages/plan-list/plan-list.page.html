@@ -17,12 +17,12 @@
           <ion-col size="8">
             <ion-item>
               <ion-input type="number" [(ngModel)]="formData.amount" name="mobile" placeholder="Enter Amount"
-                (ionInput)="validateAmount()"></ion-input>
+                (ionInput)="validateAmount($event)"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="4">
-            <ion-button style="margin-top: 15px;" size="small" (click)="goToSummary()"
-              *ngIf="formData.amount && formData.amount > 0">
+            <ion-button [disabled]="!amountValue" style="margin-top: 15px;" size="small" (click)="goToSummary()"
+              *ngIf="formData.amount && formData.amount >= 10">
               Next
             </ion-button>
           </ion-col>

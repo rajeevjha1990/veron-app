@@ -9,75 +9,85 @@
 
 <ion-content class="ion-padding">
 
-  <!-- Balance Section -->
-  <ion-grid>
-    <ion-row class="ion-justify-content-between ion-align-items-center">
-      <ion-col size="6">
-        <ion-label style="color: #2a9d8f; font-weight: bold;">Balance</ion-label>
-      </ion-col>
-      <ion-col size="6" class="ion-text-right">
-        <ion-label style="color: #2a9d8f; font-weight: bold;">₹{{user.virtual_balance}}</ion-label>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <!-- If not logged in -->
+  <ng-container *ngIf="user?.id; else notLoggedIn">
+    <!-- Balance Section -->
+    <ion-grid>
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col size="6">
+          <ion-label style="color: #2a9d8f; font-weight: bold;">Balance</ion-label>
+        </ion-col>
+        <ion-col size="6" class="ion-text-right">
+          <ion-label style="color: #2a9d8f; font-weight: bold;">₹{{ user?.virtual_balance || 0 }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <!-- Service Shortcuts -->
-  <ion-grid>
-    <ion-row>
-      <ion-col size="3" class="service-button" *ngFor="let service of services">
-        <div class="icon-box" (click)="goToPage(service.route)">
-          <ion-icon [name]="service.icon" class="small-icon"></ion-icon>
-        </div>
-        <div class="small-text">
-          <div>{{ service.line1 }}</div>
-          <div>{{ service.line2 }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-label style="margin-left: 15px;">Previous Recharge</ion-label>
-  <ion-card *ngFor="let recharge of mobilerechargeDatas.slice(0, 5)">
-    <ion-card-header>
-      <ion-card-title>
-        {{ recharge.mobile }}
-      </ion-card-title>
-      <ion-card-subtitle class=" subtitle-row">
-        <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
-        <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
-      </ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-  <ion-grid>
-    <ion-row class="ion-justify-content-end">
-      <ion-col size="auto">
-        <ion-button fill="outline" size="small" shape="round" color="primary" (click)="goToMobileRechargeHistory()">
-          View All
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <!-- Service Shortcuts -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3" class="service-button" *ngFor="let service of services">
+          <div class="icon-box" (click)="goToPage(service.route)">
+            <ion-icon [name]="service.icon" class="small-icon"></ion-icon>
+          </div>
+          <div class="small-text">
+            <div>{{ service.line1 }}</div>
+            <div>{{ service.line2 }}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
+    <!-- Mobile Recharge History -->
+    <ion-label style="margin-left: 15px;">Previous Recharge</ion-label>
+    <ion-card *ngFor="let recharge of mobilerechargeDatas.slice(0, 5)">
+      <ion-card-header>
+        <ion-card-title>{{ recharge.mobile }}</ion-card-title>
+        <ion-card-subtitle class="subtitle-row">
+          <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
+          <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
+        </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+    <ion-grid>
+      <ion-row class="ion-justify-content-end">
+        <ion-col size="auto">
+          <ion-button fill="outline" size="small" shape="round" color="primary" (click)="goToMobileRechargeHistory()">
+            View All
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-label style="margin-left: 15px;">Previous Electricity Bill</ion-label>
-  <ion-card *ngFor="let recharge of electricityDatas.slice(0, 5)">
-    <ion-card-header>
-      <ion-card-title>
-        {{ recharge.consumer_number }}
-      </ion-card-title>
-      <ion-card-subtitle class=" subtitle-row">
-        <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
-        <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
-      </ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-  <ion-grid>
-    <ion-row class="ion-justify-content-end">
-      <ion-col size="auto">
-        <ion-button fill="outline" size="small" shape="round" color="primary"
-          (click)="goToElectricityRechargeHistory()">
-          View All
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <!-- Electricity Recharge History -->
+    <ion-label style="margin-left: 15px;">Previous Electricity Bill</ion-label>
+    <ion-card *ngFor="let recharge of electricityDatas.slice(0, 5)">
+      <ion-card-header>
+        <ion-card-title>{{ recharge.consumer_number }}</ion-card-title>
+        <ion-card-subtitle class="subtitle-row">
+          <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
+          <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
+        </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+    <ion-grid>
+      <ion-row class="ion-justify-content-end">
+        <ion-col size="auto">
+          <ion-button fill="outline" size="small" shape="round" color="primary"
+            (click)="goToElectricityRechargeHistory()">
+            View All
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <!-- Not Logged In Template -->
+  <ng-template #notLoggedIn>
+    <ion-text color="medium">
+      <h2 class="ion-text-center ion-margin-top">You are not logged in</h2>
+    </ion-text>
+    <ion-button expand="block" color="primary" routerLink="/login">Login</ion-button>
+  </ng-template>
+
 </ion-content>

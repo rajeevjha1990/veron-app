@@ -128,7 +128,9 @@ export class UserService {
           pincode: respData.pincode || '',
           virtual_balance: respData.virtual_balance || '',
           coupon_limit: respData.coupon_limit || '',
-          wallet: respData.wallet || ''
+          wallet: respData.wallet || '',
+          coupons: respData.coupons || ''
+
 
         } as any;
 

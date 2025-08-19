@@ -74,4 +74,16 @@ export class PubService {
       return [];
     }
   }
+  async getMobileInfo(mobile: any) {
+    const data = {
+      mobile: mobile
+    }
+    const url = Constants.CONSUMER_API_PATH + 'getMobile_info';
+    const respData = await this.dibcHttp.post(url, data);
+    if (respData) {
+      return respData.mobileinfo;
+    } else {
+      return {};
+    }
+  }
 }

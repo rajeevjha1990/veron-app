@@ -28,7 +28,10 @@ export class PlanListPage implements OnInit {
     operator: '',
     circle: '',
     amount: 0,
-    state_id: 0
+    state_id: 0,
+    operatorId: 0,
+    operatorcode: '',
+    circle_id: 0
   };
   plantypes: any[] = [];
   plans: any[] = [];
@@ -39,6 +42,7 @@ export class PlanListPage implements OnInit {
   selectedPlan: any = {}
   swiper: any;
   plan: any = '';
+  amountValue: boolean = false
   constructor(
     private storServ: StorageService,
     private pubServ: PubService,
@@ -57,7 +61,7 @@ export class PlanListPage implements OnInit {
     }
   }
   async loadPlans(planTypeId: string) {
-    this.plans = await this.pubServ.plansByType(planTypeId, this.formData.operator, this.formData.state_id);
+    this.plans = await this.pubServ.plansByType(planTypeId, this.formData.operator, this.formData.circle_id);
     this.showFull = this.plans.map(() => false);
 
   }
@@ -93,6 +97,7 @@ export class PlanListPage implements OnInit {
     const formPayload = {
       mobile: this.formData.mobile,
       operator: this.formData.operator,
+      operatorId: this.formData.operatorId,
       circle: this.formData.circle,
       circleId: this.formData.state_id,
       amount: this.formData.amount,
@@ -137,10 +142,10 @@ export class PlanListPage implements OnInit {
       },
     });
   }
-  validateAmount() {
-    if (this.formData.amount < 0) {
-      this.formData.amount = 0;
-    }
+  validateAmount(event: any) {
+    const input = event.detail.value || '';
+    this.amountValue = true
   }
+
 
 }

@@ -28,7 +28,6 @@ export class OrderSummaryPage implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state?.['data']) {
       this.orderData = navigation.extras.state['data'];
-      console.log('Received Order Data:', this.orderData);
     }
   }
 
@@ -54,25 +53,39 @@ export class OrderSummaryPage implements OnInit {
           handler: async () => {
             this.orderData.payMode = mode;
 
-            const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData, false);
+            // Show loader immediately
+            const loader = await this.presentBubbleLoader();
 
-            switch (resp.status) {
-              case 200: //  Success
-                this.navCtrl.navigateForward('/order-history');
-                break;
+            try {
+              const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData, false);
 
-              case 400: // Insufficient balance / duplicate recharge
-                break;
+              switch (resp.status) {
+                case 200: // Success
+                  await loader.dismiss(); // hide loader
+                  this.navCtrl.navigateForward('/order-history');
+                  break;
 
-              case 403: //  Order creation failed
-                break;
+                case 400: // Insufficient balance / duplicate recharge
+                  await loader.dismiss();
+                  this.router.navigate(['/plan-list']);
+                  break;
 
-              case 409: // Conflict - recent recharge
-                break;
+                case 403: // Order creation failed
+                  await loader.dismiss();
+                  break;
 
-              default: // unknown
-                this.showError(resp.err || resp.msg || 'Unknown error occurred.');
-                break;
+                case 409: // Conflict - recent recharge
+                  await loader.dismiss();
+                  break;
+
+                default: // unknown
+                  await loader.dismiss();
+                  this.showError(resp.err || resp.msg || 'Unknown error occurred.');
+                  break;
+              }
+            } catch (err) {
+              await loader.dismiss();
+              this.showError('Something went wrong. Please try again.');
             }
           }
         }
@@ -81,6 +94,16 @@ export class OrderSummaryPage implements OnInit {
 
     await alert.present();
   }
+
+  async showSuccess(msg: string) {
+    const successAlert = await this.alertCtrl.create({
+      header: 'Success',
+      message: msg,
+      buttons: ['OK']
+    });
+    await successAlert.present();
+  }
+
 
 
   async showError(msg: string) {

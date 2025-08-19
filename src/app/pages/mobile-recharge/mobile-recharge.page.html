@@ -24,7 +24,7 @@
               <ion-item class="custom-select">
                 <ion-select [(ngModel)]="formData.operator" name="operator" interface="popover"
                   placeholder="Select your operator" required>
-                  <ion-select-option *ngFor="let operator of operators" [value]="operator.operator_code">
+                  <ion-select-option *ngFor="let operator of operators" [value]="operator.id">
                     {{ operator.operator_name }}
                   </ion-select-option>
                 </ion-select>
@@ -32,12 +32,12 @@
             </ion-col>
 
             <ion-col size="12">
-              <ion-item button (click)="StateList()">
-                <ion-input placeholder="Select circle" [(ngModel)]="formData.circle" name="circle">
+              <ion-item class="custom-select">
+                <ion-input (click)="StateList()" placeholder="Enter circle" [(ngModel)]="formData.circle" name="circle"
+                  type="text" required>
                 </ion-input>
               </ion-item>
             </ion-col>
-
             <ion-col size="12">
               <ion-button expand="block" type="submit" [disabled]="!mobileRecharge.form.valid">Next</ion-button>
             </ion-col>

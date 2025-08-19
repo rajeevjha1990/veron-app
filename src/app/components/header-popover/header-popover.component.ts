@@ -22,8 +22,8 @@ export class HeaderPopoverComponent implements OnInit {
   ) {
     this.userServ.user.subscribe(async u => {
       this.user = u;
-      console.log(this.user);
     });
+    console.log(this.user);
   }
 
   ngOnInit() { }

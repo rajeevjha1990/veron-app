@@ -1,14 +1,14 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'veromoneyApp',
+  appId: 'io.veromoney.app',
+  appName: 'veromoney',
   webDir: 'www',
   plugins: {
-    StatusBar: {
-      backgroundColor: "#ffffff",
-      style: "DARK",
-      overlaysWebView: false
+    SplashScreen: {
+      launchShowDuration: 3000,
+      launchAutoHide: true,
+      backgroundColor: "#ffffff"
     }
   }
 };

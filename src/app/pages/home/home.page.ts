@@ -67,13 +67,16 @@ export class HomePage {
     this.userServ.user.subscribe(async u => {
       this.user = u;
     });
-    console.log(this.user)
   }
   async ngOnInit() {
+    if (this.user.loggedIn) {
+      const history = await this.userService.rechargeHistory();
+      this.mobilerechargeDatas = history.mobileRecharge;
+      this.electricityDatas = history.electricityRecharge;
+    } else {
+      this.router.navigateForward('/onboarding');
+    }
 
-    const history = await this.userService.rechargeHistory();
-    this.mobilerechargeDatas = history.mobileRecharge;
-    this.electricityDatas = history.electricityRecharge;
   }
   goToMobileRechargeHistory() {
     this.router.navigateForward(['/all-mobilecharges']);

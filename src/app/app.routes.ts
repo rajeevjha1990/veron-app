@@ -103,6 +103,14 @@ export const routes: Routes = [
     path: 'otp-login',
     loadComponent: () => import('./pages/otp-login/otp-login.page').then( m => m.OtpLoginPage)
   },
+  {
+    path: 'termcondition',
+    loadComponent: () => import('./pages/termcondition/termcondition.page').then( m => m.TermconditionPage)
+  },
+  {
+    path: 'privacypolicy',
+    loadComponent: () => import('./pages/privacypolicy/privacypolicy.page').then( m => m.PrivacypolicyPage)
+  },
 
 
 
