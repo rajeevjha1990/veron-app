@@ -79,9 +79,10 @@ export class LoginPage implements OnInit {
         });
       }
 
-      if (!location?.coords?.latitude || !location?.coords?.longitude) {
+      if (location?.coords?.latitude == null || location?.coords?.longitude == null) {
         throw new Error('No coordinates received');
       }
+
 
       return {
         device_info: device,

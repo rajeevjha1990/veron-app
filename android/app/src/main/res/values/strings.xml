@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">veromoney</string>
-    <string name="title_activity_main">veromoney</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">veronmoney</string>
+    <string name="title_activity_main">veronmoney</string>
+    <string name="package_name">com.veronmoney.app</string>
+    <string name="custom_url_scheme">com.veronmoney.app</string>
 </resources>

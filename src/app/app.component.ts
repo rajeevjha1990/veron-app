@@ -11,6 +11,7 @@ import { SHARED_IONIC_MODULES } from './shared/shared.ionic';
 import { register } from 'swiper/element/bundle';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 register();
 
@@ -47,7 +48,7 @@ export class AppComponent {
       StatusBar.setStyle({ style: Style.Dark });
       StatusBar.setBackgroundColor({ color: '#ffffff' });
     });
-
+    this.showSplash()
   }
   async logout() {
     await this.userServ.logout();
@@ -56,5 +57,10 @@ export class AppComponent {
       this.navCtrl.navigateRoot('/');
     }, 1000);
   }
-
+  async showSplash() {
+    await SplashScreen.show({
+      showDuration: 3000,
+      autoHide: true
+    })
+  }
 }

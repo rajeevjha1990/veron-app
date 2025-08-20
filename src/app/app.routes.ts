@@ -115,6 +115,10 @@ export const routes: Routes = [
     path: 'transaction-details/:orderId',
     loadComponent: () => import('./pages/transaction-details/transaction-details.page').then(m => m.TransactionDetailsPage)
   },
+  {
+    path: 'coupon-details',
+    loadComponent: () => import('./pages/coupon-details/coupon-details.page').then( m => m.CouponDetailsPage)
+  },
 
 
 

@@ -67,9 +67,10 @@ export class SignupPage implements OnInit {
         });
       }
 
-      if (!location?.coords?.latitude || !location?.coords?.longitude) {
+      if (location?.coords?.latitude == null || location?.coords?.longitude == null) {
         throw new Error('No coordinates received');
       }
+
 
       return {
         device_info: device,
@@ -87,10 +88,11 @@ export class SignupPage implements OnInit {
   async newRegistration() {
     const deviceData = await this.getDeviceAndLocationInfo();
 
-    if (!deviceData || !deviceData.location?.latitude || !deviceData.location?.longitude) {
+    if (!deviceData || deviceData.location?.latitude == null || deviceData.location?.longitude == null) {
       await this.showAlert('Location is required to register. Please enable GPS.');
       return;
     }
+
 
     if (!this.formData.consumer_name || this.formData.consumer_name.trim() === '') {
       await this.showAlert('Name is required.');
