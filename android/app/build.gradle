@@ -16,8 +16,20 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+ // ✅ yaha add karein
+    signingConfigs {
+        release {
+            storeFile file("/home/rajeev/IonicProject/veromoneyApp/keys/veronmoney.jks")
+            storePassword "veron@123"
+            keyAlias "veronmoney"
+            keyPassword "veron@123"
+        }
+    }
+
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release  // ✅ link to signing config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

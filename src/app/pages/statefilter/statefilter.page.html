@@ -1,13 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>States</ion-title>
+    <ion-title>
+      States
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-input class="ion-margin-top" fill="outline" placeholder="Search state" [(ngModel)]="searchText"
-    (ionInput)="filterStates()">
-  </ion-input>
   <ion-list *ngIf="filteredStates.length > 0">
     <ion-item button detail="false" *ngFor="let state of filteredStates" (click)="selectState(state)">
       <ion-label>
@@ -21,3 +19,10 @@
   </ion-text>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-input class="ion-margin" fill="outline" placeholder="Search state" [(ngModel)]="searchText"
+      (ionInput)="filterStates()">
+    </ion-input>
+  </ion-toolbar>
+</ion-footer>

@@ -89,22 +89,29 @@
     </ion-toolbar>
   </ion-header>
 
+
   <ion-card *ngFor="let transaction of transactions">
     <ion-card-header>
       <ion-card-title>
-        Date : {{transaction.recharge_time | date: 'shortTime'}}
+        Date : {{ transaction.recharge_time | date: 'shortTime' }}
       </ion-card-title>
       <ion-card-subtitle>
-        {{transaction.order_id}} <br>{{transaction.pg_type}} <br>{{transaction.amount}}<br>
+        <p><strong>Order ID:</strong> {{ transaction.order_id }}</p>
+        <p><strong>Mobile:</strong> {{ transaction.mobile }}</p>
+        <p><strong>Payment Gateway:</strong> {{ transaction.pg_type || 'N/A' }}</p>
+        <p><strong>Amount:</strong> ₹{{ transaction.amount }}</p>
       </ion-card-subtitle>
     </ion-card-header>
+
     <ion-card-content routerLink="/transaction-details/{{transaction.id}}">
       <ion-item lines="none">
         <ion-label></ion-label>
-        <ion-badge [color]="transaction.status === 'success' ? 'success' : 'danger'">
+        <ion-badge [color]="transaction.status === 'success' ? 'success' : 
+           (transaction.status === 'Failure' ? 'danger' : 'medium')">
           {{ transaction.status }}
         </ion-badge>
       </ion-item>
     </ion-card-content>
   </ion-card>
+
 </ion-content>

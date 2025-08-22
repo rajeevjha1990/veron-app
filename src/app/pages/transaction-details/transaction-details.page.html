@@ -8,55 +8,49 @@
 
   <!-- Top Summary -->
   <div class="txn-top ion-text-center">
-    <h2>{{ transactionDetails.pa_name }}</h2>
+    <h2>{{ transactionDetails.operator || 'Recharge' }}</h2>
     <h1 class="amount">₹{{ transactionDetails.amount }}</h1>
 
-
-
+    <!-- Status -->
     <p class="status-text">
-      <ion-icon name="checkmark-circle" color="success"></ion-icon>
+      <ion-icon [color]="transactionDetails.status === 'Success' ? 'success' : 'danger'"
+        [name]="transactionDetails.status === 'Success' ? 'checkmark-circle' : 'close-circle'">
+      </ion-icon>
       {{ transactionDetails.status }}
     </p>
+
     <p class="txn-time">
       {{ transactionDetails.recharge_time | date:'MMM d, yyyy h:mm a' }}
     </p>
   </div>
 
-  <!-- Timeline -->
+  <!-- User Related Info -->
   <ion-card>
+    <ion-card-header>
+      <ion-card-title>Recharge Info</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
-      <ion-list lines="none">
+      <ion-list lines="full">
         <ion-item>
-          <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
-          <ion-label>
-            <strong>Payment started</strong>
-            <p>{{ transactionDetails.created_at | date:'MMM d, yyyy h:mm a' }}</p>
-          </ion-label>
+          <ion-label>Mobile Number</ion-label>
+          <ion-note slot="end">{{ transactionDetails.mobile }}</ion-note>
         </ion-item>
-
         <ion-item>
-          <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
-          <ion-label>
-            <strong>Pay intermediary</strong>
-            <p>{{ transactionDetails.pg_type }}</p>
-          </ion-label>
+          <ion-label>Operator</ion-label>
+          <ion-note slot="end">{{ transactionDetails.operator || 'N/A' }}</ion-note>
         </ion-item>
-
         <ion-item>
-          <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
-          <ion-label>
-            <strong>Recharge processed</strong>
-            <p>Recharge reflected in your account</p>
-          </ion-label>
+          <ion-label>Mode</ion-label>
+          <ion-note slot="end">{{ transactionDetails.mode }}</ion-note>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
 
-  <!-- Transaction Details -->
+  <!-- Technical / Backend Info -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Transaction Info</ion-card-title>
+      <ion-card-title>Technical Details</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list lines="full">
@@ -66,21 +60,38 @@
         </ion-item>
         <ion-item>
           <ion-label>Transaction ID</ion-label>
-          <ion-note slot="end">{{ transactionDetails.txid }}</ion-note>
+          <ion-note slot="end">{{ transactionDetails.txid || 'N/A' }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>Consumer ID</ion-label>
           <ion-note slot="end">{{ transactionDetails.consumer_id }}</ion-note>
         </ion-item>
         <ion-item>
-          <ion-label>Mobile</ion-label>
-          <ion-note slot="end">{{ transactionDetails.mobile }}</ion-note>
+          <ion-label>Bank Ref No</ion-label>
+          <ion-note slot="end">{{ transactionDetails.bank_ref_num || 'N/A' }}</ion-note>
         </ion-item>
         <ion-item>
-          <ion-label>Mode</ion-label>
-          <ion-note slot="end">{{ transactionDetails.mode }}</ion-note>
+          <ion-label>A1 Order ID</ion-label>
+          <ion-note slot="end">{{ transactionDetails.a1_order_id || 'N/A' }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Payment Gateway</ion-label>
+          <ion-note slot="end">{{ transactionDetails.pg_type || 'N/A' }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>PG Status</ion-label>
+          <ion-note slot="end">{{ transactionDetails.pg_status || 'N/A' }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Payment Source</ion-label>
+          <ion-note slot="end">{{ transactionDetails.payment_source || 'N/A' }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Pay Status</ion-label>
+          <ion-note slot="end">{{ transactionDetails.pay_status || 'N/A' }}</ion-note>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
+
 </ion-content>

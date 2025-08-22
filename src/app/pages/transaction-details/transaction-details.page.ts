@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TransactionDetailsPage implements OnInit {
   transactionDetails: any = {};
   orderId: number = 0;
-
+  operatorcode: any = {}
   constructor(
     private userServ: UserService,
     private route: ActivatedRoute

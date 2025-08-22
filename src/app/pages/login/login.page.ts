@@ -140,9 +140,6 @@ export class LoginPage implements OnInit {
         longitude
       });
 
-      console.log("Status:", resp.status);
-      console.log("Response:", resp);
-
       // Status ke hisaab se action
       switch (resp.status) {
         case 200:
@@ -215,6 +212,4 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-
-
 }

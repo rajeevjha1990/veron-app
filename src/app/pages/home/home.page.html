@@ -26,17 +26,22 @@
     <!-- Service Shortcuts -->
     <ion-grid>
       <ion-row>
-        <ion-col size="4" size-sm="3" size-md="2" class="service-button" *ngFor="let service of services">
-          <div class="icon-box" (click)="goToPage(service.route)">
-            <ion-icon [name]="service.icon"></ion-icon>
-          </div>
-          <div class="small-text">
-            <div>{{ service.line1 }}</div>
-            <div>{{ service.line2 }}</div>
-          </div>
+        <ion-col size="4" *ngFor="let service of services">
+          <ion-card class="service-card" (click)="goToPage(service.route)">
+            <ion-card-content class="ion-text-center">
+              <div class="icon-box">
+                <ion-icon [name]="service.icon"></ion-icon>
+              </div>
+              <div class="small-text">
+                <div>{{ service.line1 }}</div>
+                <div>{{ service.line2 }}</div>
+              </div>
+            </ion-card-content>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
+
 
     <!-- Ads Swiper -->
     <div class="ads-swiper swiper mySwiper">

@@ -47,7 +47,7 @@ export class HomePage {
     {
       icon: 'tv-outline',
       line1: 'DTH',
-      line2: '',
+      line2: 'Recharge',
       route: '/dth'
     },
     {
