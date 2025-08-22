@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { Device } from '@capacitor/device';
 import { Geolocation } from '@capacitor/geolocation';
 import { Capacitor } from '@capacitor/core'; // add this import at the top
+import { User } from 'src/app/data-types/user';
 
 @Component({
   selector: 'app-login',
@@ -35,14 +36,25 @@ export class LoginPage implements OnInit {
   otpTimer: any
   otpInterval: any;
   genratedotpData: any = {}
+  user: User = new User();
 
   constructor(
     private userServ: UserService,
     private router: Router,
     private alertCtrl: AlertController
-  ) { }
+  ) {
+    this.userServ.user.subscribe(async u => {
+      this.user = u;
+    });
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.user) {
+      this.router.navigateByUrl('/home', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    }
+  }
 
   async getDeviceAndLocationInfo() {
     try {

@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage-angular';
 import { Router, RouterLink } from '@angular/router';
 import Swiper from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
+import { User } from 'src/app/data-types/user';
+import { UserService } from 'src/app/services/user/user.service';
 
 Swiper.use([Navigation, Autoplay]);
 
@@ -67,19 +69,22 @@ export class OnboardingPage implements OnInit {
       clickable: true,
     }
   };
+  user: User = new User();
 
   constructor(
     private storage: Storage,
-    private router: Router
-  ) { }
+    private router: Router,
+    private userServ: UserService
+  ) {
+    this.userServ.user.subscribe(async u => {
+      this.user = u;
+    });
+  }
 
   ngOnInit() {
   }
   async finishOnboarding() {
-    await this.storage.set('onboardingShown', true);
-
-    const token = await this.storage.get('Authkey');
-    if (token) {
+    if (this.user) {
       this.router.navigateByUrl('/home', { replaceUrl: true });
     } else {
       this.router.navigateByUrl('/login', { replaceUrl: true });
@@ -96,8 +101,8 @@ export class OnboardingPage implements OnInit {
         clickable: true,
       },
       autoplay: {
-        delay: 1000,
-        disableOnInteraction: false,
+        delay: 500,
+        //disableOnInteraction: false,
       },
     });
   }

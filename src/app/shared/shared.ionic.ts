@@ -48,7 +48,8 @@ import {
     IonAccordion,
     IonChip,
     IonProgressBar,
-    IonMenuToggle
+    IonMenuToggle,
+    IonItemDivider
 } from '@ionic/angular/standalone';
 
 export const SHARED_IONIC_MODULES = [
@@ -102,5 +103,6 @@ export const SHARED_IONIC_MODULES = [
     IonAccordion,
     IonChip,
     IonProgressBar,
-    IonMenuToggle
+    IonMenuToggle,
+    IonItemDivider
 ];

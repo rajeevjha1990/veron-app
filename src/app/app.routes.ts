@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -33,114 +32,92 @@ export const routes: Routes = [
   },
   {
     path: 'ordes',
-    loadComponent: () => import('./pages/ordes/ordes.page').then(m => m.OrdesPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/ordes/ordes.page').then(m => m.OrdesPage)
   },
   {
     path: 'favorites',
-    loadComponent: () => import('./pages/favorites/favorites.page').then(m => m.FavoritesPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/favorites/favorites.page').then(m => m.FavoritesPage)
   },
   {
     path: 'change-password',
-    loadComponent: () => import('./pages/change-password/change-password.page').then(m => m.ChangePasswordPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/change-password/change-password.page').then(m => m.ChangePasswordPage)
   },
   {
     path: 'personal-info',
-    loadComponent: () => import('./pages/personal-info/personal-info.page').then(m => m.PersonalInfoPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/personal-info/personal-info.page').then(m => m.PersonalInfoPage)
   },
   {
     path: 'statefilter',
-    loadComponent: () => import('./pages/statefilter/statefilter.page').then(m => m.StatefilterPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/statefilter/statefilter.page').then(m => m.StatefilterPage)
   },
   {
     path: 'cityfilter',
-    loadComponent: () => import('./pages/cityfilter/cityfilter.page').then(m => m.CityfilterPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/cityfilter/cityfilter.page').then(m => m.CityfilterPage)
   },
   {
     path: 'all-mobilecharges',
-    loadComponent: () => import('./pages/all-mobilecharges/all-mobilecharges.page').then(m => m.AllMobilechargesPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/all-mobilecharges/all-mobilecharges.page').then(m => m.AllMobilechargesPage)
   },
   {
     path: 'all-electriccharges',
-    loadComponent: () => import('./pages/all-electriccharges/all-electriccharges.page').then(m => m.AllElectricchargesPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/all-electriccharges/all-electriccharges.page').then(m => m.AllElectricchargesPage)
   },
   {
     path: 'mobile-recharge',
-    loadComponent: () => import('./pages/mobile-recharge/mobile-recharge.page').then(m => m.MobileRechargePage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/mobile-recharge/mobile-recharge.page').then(m => m.MobileRechargePage)
   },
   {
     path: 'plan-list',
-    loadComponent: () => import('./pages/plan-list/plan-list.page').then(m => m.PlanListPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/plan-list/plan-list.page').then(m => m.PlanListPage)
   },
   {
     path: 'order-summary',
-    loadComponent: () => import('./pages/order-summary/order-summary.page').then(m => m.OrderSummaryPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/order-summary/order-summary.page').then(m => m.OrderSummaryPage)
   },
   {
     path: 'wallet-recharge-form',
-    loadComponent: () => import('./pages/wallet-recharge-form/wallet-recharge-form.page').then(m => m.WalletRechargeFormPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/wallet-recharge-form/wallet-recharge-form.page').then(m => m.WalletRechargeFormPage)
   },
 
   {
     path: 'order-history',
-    loadComponent: () => import('./pages/order-history/order-history.page').then(m => m.OrderHistoryPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/order-history/order-history.page').then(m => m.OrderHistoryPage)
   },
   {
     path: 'coupon-code',
-    loadComponent: () => import('./pages/coupon-code/coupon-code.page').then(m => m.CouponCodePage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/coupon-code/coupon-code.page').then(m => m.CouponCodePage)
   },
   {
     path: 'coupon-order',
-    loadComponent: () => import('./pages/coupon-order/coupon-order.page').then(m => m.CouponOrderPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/coupon-order/coupon-order.page').then(m => m.CouponOrderPage)
   },
   {
     path: 'verification-page',
-    loadComponent: () => import('./pages/verification-page/verification-page.page').then(m => m.VerificationPagePage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/verification-page/verification-page.page').then(m => m.VerificationPagePage)
   },
   {
     path: 'forgot-password',
-    loadComponent: () => import('./pages/forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
   },
   {
     path: 'otp-login',
-    loadComponent: () => import('./pages/otp-login/otp-login.page').then(m => m.OtpLoginPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/otp-login/otp-login.page').then(m => m.OtpLoginPage)
   },
   {
     path: 'termcondition',
-    loadComponent: () => import('./pages/termcondition/termcondition.page').then(m => m.TermconditionPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/termcondition/termcondition.page').then(m => m.TermconditionPage)
   },
   {
     path: 'privacypolicy',
-    loadComponent: () => import('./pages/privacypolicy/privacypolicy.page').then(m => m.PrivacypolicyPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/privacypolicy/privacypolicy.page').then(m => m.PrivacypolicyPage)
   },
   {
     path: 'transaction-details/:orderId',
-    loadComponent: () => import('./pages/transaction-details/transaction-details.page').then(m => m.TransactionDetailsPage),
-    canActivate: [AuthGuard]
+    loadComponent: () => import('./pages/transaction-details/transaction-details.page').then(m => m.TransactionDetailsPage)
   },
   {
     path: 'coupon-details',
     loadComponent: () => import('./pages/coupon-details/coupon-details.page').then(m => m.CouponDetailsPage),
-    canActivate: [AuthGuard]
   },
 
 

@@ -246,4 +246,13 @@ export class UserService {
       return []
     }
   }
+  async consumerCoupons() {
+    const url = Constants.CONSUMER_API_PATH + 'consumer_coupons';
+    const respData = await this.veronHttp.post(url, {});
+    if (respData) {
+      return respData;
+    } else {
+      return []
+    }
+  }
 }

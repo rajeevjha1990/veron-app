@@ -1,13 +1,77 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>coupon-details</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Coupon Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">coupon-details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+
+  <ion-list lines="none">
+    <!-- Loop All Coupons -->
+    <ion-card *ngFor="let item of coupons" class="coupon-card">
+      <ion-card-header>
+        <ion-card-title color="dark">{{ item.coupon.coupon_name }}</ion-card-title>
+        <ion-card-subtitle>
+          <ion-chip color="secondary" outline>
+            <ion-label>Code: {{ item.coupon.coupon_code }}</ion-label>
+          </ion-chip>
+          <ion-chip color="success">
+            <ion-label>₹{{ item.coupon.coupon_value }}</ion-label>
+          </ion-chip>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p><b>Price:</b> ₹{{ item.coupon.price }}</p>
+        <p><b>Validity:</b> {{ item.coupon.coupon_validity }} days</p>
+        <p><b>Created:</b> {{ item.coupon.created_at | date:'mediumDate' }}</p>
+      </ion-card-content>
+
+      <!-- Histories Accordion -->
+      <ion-accordion-group expand="inset">
+        <ion-accordion value="histories-{{ item.coupon.coupon_code }}">
+          <ion-item slot="header" color="light">
+            <ion-label class="ion-padding"><b>Histories</b></ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item *ngFor="let h of item.histories">
+                <ion-label>
+                  <p><b>Purchased:</b> {{ h.purchased_date | date:'medium' }}</p>
+                  <p><b>Last Used:</b> {{ h.last_use_date | date:'medium' }}</p>
+                  <p>
+                    <ion-chip color="warning" outline><ion-label>Alloted: {{ h.alloted }}</ion-label></ion-chip>
+                    <ion-chip color="success"><ion-label>Used: {{ h.used }}</ion-label></ion-chip>
+                    <ion-chip color="danger" outline><ion-label>Dues: {{ h.dues }}</ion-label></ion-chip>
+                  </p>
+                  <p><b>Amount:</b> ₹{{ h.amount }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-accordion>
+
+        <!-- Debits Accordion -->
+        <ion-accordion value="debits-{{ item.coupon.coupon_code }}">
+          <ion-item slot="header" color="light">
+            <ion-label class="ion-padding"><b>Debits</b></ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item *ngFor="let d of item.debits">
+                <ion-label>
+                  <p><b>Date:</b> {{ d.last_use_date | date:'medium' }}</p>
+                  <p><b>Amount:</b> ₹{{ d.amount }}</p>
+                  <p>
+                    <ion-chip color="success"><ion-label>Used: {{ d.used }}</ion-label></ion-chip>
+                    <ion-chip color="danger" outline><ion-label>Dues: {{ d.dues }}</ion-label></ion-chip>
+                  </p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-card>
+  </ion-list>
 </ion-content>
