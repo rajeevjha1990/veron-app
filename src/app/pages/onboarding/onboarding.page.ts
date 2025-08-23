@@ -85,9 +85,9 @@ export class OnboardingPage implements OnInit {
   }
   async finishOnboarding() {
     if (this.user) {
-      this.router.navigateByUrl('/home', { replaceUrl: true });
+      this.router.navigateByUrl('/home');
     } else {
-      this.router.navigateByUrl('/login', { replaceUrl: true });
+      this.router.navigateByUrl('/login');
     }
   }
 

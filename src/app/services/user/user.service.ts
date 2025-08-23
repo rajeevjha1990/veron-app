@@ -255,4 +255,9 @@ export class UserService {
       return []
     }
   }
+  async walletRecharge(data: any) {
+    const url = Constants.CONSUMER_API_PATH + 'wallet_recharge';
+    const apiResp = await this.veronHttp.post(url, data);
+    return apiResp;
+  }
 }

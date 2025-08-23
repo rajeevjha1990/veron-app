@@ -13,10 +13,30 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-input label="Enter amount to recharge wallet" labelPlacement="floating"></ion-input>
+        <ion-input type="number" [(ngModel)]="formdata.amount" label="Enter amount to recharge wallet"
+          labelPlacement="floating"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="formdata.ref_number" label="Referance Number"
+          labelPlacement="floating"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="date" [(ngModel)]="formdata.pay_date" label="Payment Date"
+          labelPlacement="floating"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select labelPlacement="floating" interface="popover" [(ngModel)]="formdata.pay_mode" label="Payment Mode">
+          <ion-select-option value="cash">Cash</ion-select-option>
+          <ion-select-option value="neft">NEFT</ion-select-option>
+          <ion-select-option value="upi">UPI</ion-select-option>
+          <ion-select-option value="check">Check</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="formdata.remark" label="Remark" labelPlacement="floating"></ion-input>
       </ion-item>
     </ion-card-content>
-    <ion-button expand="block" color="primary">
+    <ion-button expand="block" color="primary" (click)="submitSection()">
       Proceed To Payment
     </ion-button>
   </ion-card>

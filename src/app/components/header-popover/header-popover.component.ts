@@ -34,8 +34,9 @@ export class HeaderPopoverComponent implements OnInit {
       if (action === 'coupon') {
         this.navCtrl.navigateForward('/coupon-details');
       }
+      if (action === 'wallet') {
+        this.navCtrl.navigateForward('/wallet-recharge-form');
+      }
     });
-
   }
-
 }

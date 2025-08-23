@@ -24,8 +24,6 @@ export class MobileRechargePage implements OnInit {
     circle: '',
     state_id: '',
     operatorcode: '',
-
-
   };
 
   constructor(
