@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { User } from 'src/app/data-types/user';
 import Swiper from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
+import { RouterLink } from '@angular/router';
 
 Swiper.use([Navigation, Autoplay]);
 
@@ -16,7 +17,7 @@ Swiper.use([Navigation, Autoplay]);
   imports: [
     ...SHARED_IONIC_MODULES,
     CommonModule,
-
+    RouterLink
   ],
 })
 
@@ -60,7 +61,7 @@ export class HomePage {
       icon: 'gift-outline',
       line1: 'VM Coupon',
       line2: '',
-      route: '/vm-coupon'
+      route: '/coupon-code'
     }
   ];
   ads = [

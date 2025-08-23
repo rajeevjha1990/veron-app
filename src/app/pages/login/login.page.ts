@@ -49,11 +49,11 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    if (this.user) {
-      this.router.navigateByUrl('/home', { replaceUrl: true });
-    } else {
-      this.router.navigateByUrl('/login', { replaceUrl: true });
-    }
+    this.userServ.user.subscribe(u => {
+      if (u && u.loggedIn) {
+        this.router.navigateByUrl('/home');
+      }
+    });
   }
 
   async getDeviceAndLocationInfo() {

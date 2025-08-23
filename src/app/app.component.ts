@@ -12,6 +12,7 @@ import { register } from 'swiper/element/bundle';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { App } from '@capacitor/app';
 
 register();
 
@@ -48,8 +49,21 @@ export class AppComponent {
       StatusBar.setStyle({ style: Style.Dark });
       StatusBar.setBackgroundColor({ color: '#ffffff' });
     });
-    this.showSplash()
+    this.showSplash();
+    this.initializeApp()
   }
+  initializeApp() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      // if current is '/home' then close the app
+      if (this.router.url === '/home') {
+        App.exitApp(); // close the app
+      } else {
+        window.history.back();
+      }
+    });
+  }
+
+
   async logout() {
     await this.userServ.logout();
     const menuOpen: any = document.getElementsByClassName('menu-content-open')
