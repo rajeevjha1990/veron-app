@@ -39,6 +39,8 @@ import {
   documentOutline,
   tvOutline,
   giftOutline,
+  helpCircleOutline,
+  sendOutline
 } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
@@ -81,6 +83,8 @@ addIcons({
   'tv-outline': tvOutline,
   'car-outline': cardOutline,
   'gift-outline': giftOutline,
+  'help-circle-outline': helpCircleOutline,
+  'send-outline': sendOutline
 });
 
 bootstrapApplication(AppComponent, appConfig)

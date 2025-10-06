@@ -24,6 +24,6 @@
   <ion-item lines="none" (click)="onSelect('cbalance')">
     <ion-icon name="cash-outline" slot="start"></ion-icon>
     <ion-label class="mylabel">Coupon Main Balance</ion-label>
-    <div class="amount"> ₹{{ user?.virtual_balance || 0 }}</div>
+    <div class="amount"> ₹{{ user.virtual_balance || 0 }}</div>
   </ion-item>
 </ion-list>

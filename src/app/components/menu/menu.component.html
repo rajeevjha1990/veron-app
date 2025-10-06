@@ -40,6 +40,12 @@
           Change Password
         </ion-item>
       </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigateAndCloseMenu('/support')">
+          <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+          Support
+        </ion-item>
+      </ion-menu-toggle>
 
       <ion-menu-toggle auto-hide="true">
         <ion-item (click)="navigateAndCloseMenu('/personal-info')">

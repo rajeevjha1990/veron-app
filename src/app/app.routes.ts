@@ -115,4 +115,24 @@ export const routes: Routes = [
     path: 'coupon-details',
     loadComponent: () => import('./pages/coupon-details/coupon-details.page').then(m => m.CouponDetailsPage)
   },
+  {
+    path: 'mobile-postpaid',
+    loadComponent: () => import('./pages/mobile-postpaid/mobile-postpaid.page').then( m => m.MobilePostpaidPage)
+  },
+  {
+    path: 'electricity-bill',
+    loadComponent: () => import('./pages/electricity-bill/electricity-bill.page').then( m => m.ElectricityBillPage)
+  },
+  {
+    path: 'dth',
+    loadComponent: () => import('./pages/dth/dth.page').then( m => m.DthPage)
+  },
+  {
+    path: 'fasttag',
+    loadComponent: () => import('./pages/fasttag/fasttag.page').then( m => m.FasttagPage)
+  },
+  {
+    path: 'support',
+    loadComponent: () => import('./pages/support/support.page').then( m => m.SupportPage)
+  },
 ];

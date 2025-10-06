@@ -260,4 +260,35 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, data);
     return apiResp;
   }
+  async raisedYourTicket(ticketdata: any) {
+    const url = Constants.CONSUMER_API_PATH + 'new_support';
+    const apiResp = await this.veronHttp.post(url, ticketdata);
+    return apiResp;
+  }
+  async generatedTickets() {
+    const url = Constants.CONSUMER_API_PATH + 'getTickets';
+    const respData = await this.veronHttp.post(url, {});
+    if (respData) {
+      return respData.tickets;
+    } else {
+      return []
+    }
+  }
+  async getTicketConversation(tktno: any) {
+    const data = {
+      tktno: tktno
+    }
+    const url = Constants.CONSUMER_API_PATH + 'getTicketConversactions';
+    const respData = await this.veronHttp.post(url, data);
+    if (respData) {
+      return respData.conversactions;
+    } else {
+      return []
+    }
+  }
+  async replyToTicket(replydata: any) {
+    const url = Constants.CONSUMER_API_PATH + 'reply_to_ticket';
+    const apiResp = await this.veronHttp.post(url, replydata);
+    return apiResp;
+  }
 }

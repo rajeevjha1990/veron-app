@@ -29,6 +29,7 @@ export class OrderSummaryPage implements OnInit {
     if (navigation?.extras?.state?.['data']) {
       this.orderData = navigation.extras.state['data'];
     }
+    console.log(this.orderData);
   }
 
   async presentBubbleLoader() {
@@ -52,8 +53,6 @@ export class OrderSummaryPage implements OnInit {
           text: 'Yes, Pay Now',
           handler: async () => {
             this.orderData.payMode = mode;
-
-            // Show loader immediately
             const loader = await this.presentBubbleLoader();
 
             try {
@@ -63,6 +62,16 @@ export class OrderSummaryPage implements OnInit {
                 case 200: // Success
                   await loader.dismiss(); // hide loader
                   this.navCtrl.navigateForward('/order-history');
+                  break;
+                case 'pending':
+                  await loader.dismiss();
+                  this.showError('Your recharge is pending. Please check order history after few minutes.');
+                  this.navCtrl.navigateForward('/order-history');
+                  break;
+                case 'failure':
+                  await loader.dismiss();
+                  this.showError(resp.err || 'Recharge failed.');
+                  this.router.navigate(['/plan-list']);
                   break;
 
                 case 400: // Insufficient balance / duplicate recharge

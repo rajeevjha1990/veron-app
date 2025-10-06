@@ -23,16 +23,7 @@ Swiper.use([Navigation, Pagination]);
 })
 export class PlanListPage implements OnInit {
   @ViewChild('content', { static: false }) content: IonContent | undefined;
-  formData = {
-    mobile: '',
-    operator: '',
-    circle: '',
-    amount: 0,
-    state_id: 0,
-    operatorId: 0,
-    operatorcode: '',
-    circle_id: 0
-  };
+  formData: any = {};
   plantypes: any[] = [];
   plans: any[] = [];
   selectedPlanTypeId: string = '';
@@ -54,6 +45,7 @@ export class PlanListPage implements OnInit {
     this.operators = await this.pubServ.getOperators();
     this.circles = await this.pubServ.getCircles();
     this.formData = await this.storServ.getFormData();
+    console.log(this.formData);
     this.plantypes = await this.pubServ.planTypes();
     if (this.plantypes.length > 0) {
       this.selectedPlanTypeId = this.plantypes[0].id;
@@ -83,10 +75,10 @@ export class PlanListPage implements OnInit {
     if (data?.state) {
       this.formData.circle = data.state.state_name;
       this.formData.state_id = data.state.id;
+      this.formData.state_code = data.state.state_code;
     }
   }
   selectPlan(plan: any) {
-
     this.formData.amount = plan.price;
     this.selectedPlan = plan
     setTimeout(() => {
@@ -96,10 +88,10 @@ export class PlanListPage implements OnInit {
   goToSummary() {
     const formPayload = {
       mobile: this.formData.mobile,
-      operator: this.formData.operator,
+      operator: this.formData.operatorcode,
       operatorId: this.formData.operatorId,
       circle: this.formData.circle,
-      circleId: this.formData.state_id,
+      circleId: this.formData.circle_id,
       amount: this.formData.amount,
     };
 

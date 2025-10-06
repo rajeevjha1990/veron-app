@@ -78,7 +78,7 @@ export class MobileRechargePage implements OnInit {
       this.formData.operatorcode = selectedOperator.operator_code;
     }
     if (selectedCircle) {
-      this.formData.circle_id = selectedCircle.id;
+      this.formData.circle_id = selectedCircle.state_code;
     }
 
     this.storServ.setFormData(this.formData);
