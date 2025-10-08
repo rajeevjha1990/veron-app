@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, MenuController } from '@ionic/angular';
+import { NavController, MenuController, AlertController } from '@ionic/angular';
+import { User } from 'src/app/data-types/user';
 import { UserService } from 'src/app/services/user/user.service';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 
@@ -18,19 +19,32 @@ import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 })
 export class MenuComponent implements OnInit {
   menuType: string = 'overlay';
+  user: User = new User();
+  canAccess: boolean = false;
+
   constructor(
     private navCtrl: NavController,
     private menuCtrl: MenuController,
     private userServ: UserService,
-    private router: Router
+    private routers: Router,
+    private router: NavController,
+    private alertCtrl: AlertController
+
   ) {
-    this.router.events.subscribe(() => {
+    this.routers.events.subscribe(() => {
       this.menuCtrl.close('main-menu');
     });
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.userServ.user.subscribe(u => {
+      this.user = u;
+      this.canAccess = Number(this.user?.access) === 1;
+
+    });
+
+  }
   async logout() {
     await this.userServ.logout();
     const menuOpen: any = document.getElementsByClassName('menu-content-open')
@@ -48,9 +62,33 @@ export class MenuComponent implements OnInit {
     await this.menuCtrl.close('main-menu');
   }
 
-  async navigateAndCloseMenu(link: string) {
+  async navigateAndCloseMenu(link: string, skipAccessCheck: boolean = false) {
     await this.menuCtrl.close('main-menu');
-    this.navCtrl.navigateRoot(link);
+
+    // Dashboard link skip access check
+    if (skipAccessCheck) {
+      this.router.navigateForward([link]);
+    } else {
+      this.checkAccess(link);
+    }
+  }
+
+
+  checkAccess(route: string) {
+    if (this.canAccess) {
+      this.router.navigateForward([route]);
+    } else {
+      this.showAlert("Access Denied", "You do not have access to this service currently.");
+    }
+  }
+
+  async showAlert(header: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
 }

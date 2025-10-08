@@ -178,9 +178,22 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/login']);
           break;
 
-        case 403: // Not verified
-          this.router.navigate(['/verification-page']);
+        case 403:
+          const errMsg = (resp.err || '').toLowerCase();
+
+          if (errMsg.includes('inactive')) {
+            // Case 1: Inactive account
+            this.showAlert('Your account is inactive. Please contact support.');
+          }
+          else if (errMsg.includes('not verified') || resp.status === 'unverified') {
+            //  Case 2: Unverified account
+            this.router.navigate(['/verification-page']);
+          }
+          else {
+            this.showAlert(resp.err || 'Access denied.');
+          }
           break;
+
 
         default: // Other errors
           this.showAlert(resp.err || "Login failed. Please try again.");

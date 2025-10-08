@@ -1,4 +1,4 @@
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
@@ -125,26 +125,34 @@ export class HomePage {
       clickable: true,
     }
   };
+  canAccess: boolean = false;
 
   constructor(
     private userService: UserService,
     private router: NavController,
-    private userServ: UserService
+    private userServ: UserService,
+    private alertCtrl: AlertController
   ) {
     this.userServ.user.subscribe(async u => {
       this.user = u;
+      this.canAccess = Number(this.user?.access) === 1;
     });
-  }
-  async ngOnInit() {
-    if (this.user.loggedIn) {
-      const history = await this.userService.rechargeHistory();
-      this.mobilerechargeDatas = history.mobileRecharge;
-      this.electricityDatas = history.electricityRecharge;
-    } else {
-      this.router.navigateForward('/onboarding');
-    }
 
   }
+  async ngOnInit() {
+    this.userServ.user.subscribe(async u => {
+      this.user = u;
+      this.canAccess = Number(this.user?.access) === 1;
+      if (this.user?.loggedIn) {
+        const history = await this.userService.rechargeHistory();
+        this.mobilerechargeDatas = history.mobileRecharge;
+        this.electricityDatas = history.electricityRecharge;
+      } else {
+        this.router.navigateForward('/onboarding');
+      }
+    });
+  }
+
   goToMobileRechargeHistory() {
     this.router.navigateForward(['/all-mobilecharges']);
   }
@@ -185,5 +193,22 @@ export class HomePage {
       },
     });
   }
+  checkAccess(route: string) {
+    if (Number(this.user?.access) === 1) {
+      this.router.navigateForward([route]);
+    } else {
+      this.showAlert("Access Denied", "You do not have access to this service currently.");
+    }
+  }
+
+  async showAlert(header: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
 
 }

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding  intro-slides">
+<ion-content class="ion-padding intro-slides">
 
   <!-- If not logged in -->
   <ng-container *ngIf="user?.id; else notLoggedIn">
@@ -27,7 +27,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="4" *ngFor="let service of services">
-          <ion-card class="service-card" (click)="goToPage(service.route)">
+          <ion-card class="service-card" (click)="checkAccess(service.route)">
             <ion-card-content class="ion-text-center">
               <div class="icon-box">
                 <ion-icon [name]="service.icon"></ion-icon>
@@ -41,12 +41,12 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+
     <!-- Ads Swiper -->
-    <div class="ads-swiper swiper mySwiper">
+    <div class="ads-swiper swiper mySwiper" [class.disabled-card]="!canAccess">
       <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let ad of slides">
           <ion-card class="ad-card">
-            <!-- <img [src]="ad.image" alt="Ad" /> -->
             <ion-card-header>
               <ion-card-title>{{ ad.title }}</ion-card-title>
               <ion-card-subtitle>{{ ad.subtitle }}</ion-card-subtitle>
@@ -64,4 +64,5 @@
     </ion-text>
     <ion-button expand="block" color="primary" routerLink="/login">Login</ion-button>
   </ng-template>
+
 </ion-content>

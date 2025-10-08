@@ -1,32 +1,33 @@
 <ion-menu [type]="menuType" menuId="main-menu" contentId="main-content" side="start">
   <ion-header>
-    <ion-toolbar color="">
-      <ion-title>
-        <img src="assets/logo.png" alt="Company Logo" style="max-width: 50%;">
-      </ion-title>
+    <ion-toolbar>
+      <ion-title><img src="assets/logo.png" alt="Company Logo" style="max-width: 50%;"></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
       <ion-menu-toggle auto-hide="true">
-        <ion-item (click)="navigateAndCloseMenu('/home')">
+        <ion-item (click)="navigateAndCloseMenu('/home', true)">
           <ion-icon slot="start" name="home-outline"></ion-icon>
           Dashboard
         </ion-item>
       </ion-menu-toggle>
+
       <ion-menu-toggle auto-hide="true">
         <ion-item (click)="navigateAndCloseMenu('/order-history')">
           <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
           Transaction History
         </ion-item>
       </ion-menu-toggle>
+
       <ion-menu-toggle auto-hide="true">
         <ion-item (click)="navigateAndCloseMenu('/coupon-details')">
           <ion-icon name="card-outline" slot="start"></ion-icon>
           Coupons
         </ion-item>
       </ion-menu-toggle>
+
       <ion-menu-toggle auto-hide="true">
         <ion-item (click)="navigateAndCloseMenu('/favorites')">
           <ion-icon slot="start" name="heart-outline"></ion-icon>
@@ -40,6 +41,7 @@
           Change Password
         </ion-item>
       </ion-menu-toggle>
+
       <ion-menu-toggle auto-hide="true">
         <ion-item (click)="navigateAndCloseMenu('/support')">
           <ion-icon slot="start" name="help-circle-outline"></ion-icon>
@@ -61,19 +63,5 @@
         </ion-item>
       </ion-menu-toggle>
     </ion-list>
-    <!-- <div class="ads-swiper swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let ad of ads">
-          <ion-card class="ad-card">
-            <img [src]="ad.image" alt="Ad" />
-            <ion-card-header>
-              <ion-card-title>{{ ad.title }}</ion-card-title>
-              <ion-card-subtitle>{{ ad.subtitle }}</ion-card-subtitle>
-            </ion-card-header>
-          </ion-card>
-        </div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div> -->
   </ion-content>
 </ion-menu>

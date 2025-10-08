@@ -129,8 +129,8 @@ export class UserService {
           virtual_balance: respData.virtual_balance || '',
           coupon_limit: respData.coupon_limit || '',
           wallet: respData.wallet || '',
-          coupons: respData.coupons || ''
-
+          coupons: respData.coupons || '',
+          access: respData.access
 
         } as any;
 

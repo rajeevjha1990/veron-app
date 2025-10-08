@@ -21,3 +21,11 @@ table {
         background-color: #dddddd;
     }
 }
+
+ion-card-title span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+}

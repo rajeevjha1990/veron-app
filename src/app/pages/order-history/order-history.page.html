@@ -93,7 +93,9 @@
   <ion-card *ngFor="let transaction of transactions">
     <ion-card-header>
       <ion-card-title>
-        Date : {{ transaction.recharge_time | date: 'shortTime' }}
+        <span>
+          Date : {{ transaction.recharge_time | date: 'medium' }}
+        </span>
       </ion-card-title>
       <ion-card-subtitle>
         <p><strong>Order ID:</strong> {{ transaction.order_id }}</p>

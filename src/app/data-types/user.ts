@@ -17,4 +17,5 @@ export class User {
     coupon_limit: string = '';
     wallet: string = '';
     coupons: string = '';
+    access: number = 0
 };
