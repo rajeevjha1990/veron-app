@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Pending Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-card class="pending-card">
+    <ion-card-header>
+      <ion-card-title class="pending-title">
+        Order Pending
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label><strong>Order ID:</strong></ion-label>
+          <ion-note slot="end">{{ orderId }}</ion-note>
+        </ion-item>
+
+        <ion-item *ngIf="orderDetails">
+          <ion-label><strong>Mobile Number:</strong></ion-label>
+          <ion-note slot="end">{{ orderDetails.mobile }}</ion-note>
+        </ion-item>
+
+        <ion-item *ngIf="orderDetails">
+          <ion-label><strong>Amount:</strong></ion-label>
+          <ion-note slot="end">₹{{ orderDetails.amount }}</ion-note>
+        </ion-item>
+
+        <ion-item *ngIf="orderDetails">
+          <ion-label><strong>Status:</strong></ion-label>
+          <ion-note slot="end">{{ orderDetails.status | titlecase }}</ion-note>
+        </ion-item>
+      </ion-list>
+
+      <p class="pending-message">
+        Your order is currently pending. We will notify you with an update as soon as possible.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

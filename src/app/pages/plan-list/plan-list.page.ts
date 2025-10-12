@@ -1,5 +1,5 @@
-import { ModalController, NavController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
@@ -19,7 +19,9 @@ Swiper.use([Navigation, Pagination]);
   styleUrls: ['./plan-list.page.scss'],
   standalone: true,
   imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule,
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PlanListPage implements OnInit {
   @ViewChild('content', { static: false }) content: IonContent | undefined;

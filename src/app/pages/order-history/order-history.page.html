@@ -108,10 +108,13 @@
     <ion-card-content routerLink="/transaction-details/{{transaction.id}}">
       <ion-item lines="none">
         <ion-label></ion-label>
-        <ion-badge [color]="transaction.status === 'success' ? 'success' : 
-           (transaction.status === 'Failure' ? 'danger' : 'medium')">
+        <ion-badge [color]="
+    (transaction.status | lowercase) === 'success' ? 'success' :
+    (transaction.status | lowercase) === 'failure' ? 'danger' : 'medium'
+  ">
           {{ transaction.status }}
         </ion-badge>
+
       </ion-item>
     </ion-card-content>
   </ion-card>

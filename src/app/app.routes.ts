@@ -117,22 +117,26 @@ export const routes: Routes = [
   },
   {
     path: 'mobile-postpaid',
-    loadComponent: () => import('./pages/mobile-postpaid/mobile-postpaid.page').then( m => m.MobilePostpaidPage)
+    loadComponent: () => import('./pages/mobile-postpaid/mobile-postpaid.page').then(m => m.MobilePostpaidPage)
   },
   {
     path: 'electricity-bill',
-    loadComponent: () => import('./pages/electricity-bill/electricity-bill.page').then( m => m.ElectricityBillPage)
+    loadComponent: () => import('./pages/electricity-bill/electricity-bill.page').then(m => m.ElectricityBillPage)
   },
   {
     path: 'dth',
-    loadComponent: () => import('./pages/dth/dth.page').then( m => m.DthPage)
+    loadComponent: () => import('./pages/dth/dth.page').then(m => m.DthPage)
   },
   {
     path: 'fasttag',
-    loadComponent: () => import('./pages/fasttag/fasttag.page').then( m => m.FasttagPage)
+    loadComponent: () => import('./pages/fasttag/fasttag.page').then(m => m.FasttagPage)
   },
   {
     path: 'support',
-    loadComponent: () => import('./pages/support/support.page').then( m => m.SupportPage)
+    loadComponent: () => import('./pages/support/support.page').then(m => m.SupportPage)
+  },
+  {
+    path: 'pending-order/:orderId',
+    loadComponent: () => import('./pages/pending-order/pending-order.page').then(m => m.PendingOrderPage)
   },
 ];

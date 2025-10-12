@@ -291,4 +291,21 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, replydata);
     return apiResp;
   }
+  async pendingOrderDetails(orderId: any) {
+    const data = {
+      orderId: orderId
+    }
+    const url = Constants.CONSUMER_API_PATH + 'pending_order_details';
+    const respData = await this.veronHttp.post(url, data);
+    if (respData) {
+      return respData.orderdetails;
+    } else {
+      return {}
+    }
+  }
+  async updatePendingToFailure() {
+    const url = Constants.CONSUMER_API_PATH + 'update_two_days_pending';
+    const apiResp = await this.veronHttp.post(url, {});
+    return apiResp;
+  }
 }

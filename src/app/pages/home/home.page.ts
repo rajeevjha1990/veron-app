@@ -1,5 +1,5 @@
 import { NavController, AlertController } from '@ionic/angular';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 import { CommonModule } from '@angular/common';
@@ -19,6 +19,8 @@ Swiper.use([Navigation, Autoplay]);
     CommonModule,
     RouterLink
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 
 export class HomePage {

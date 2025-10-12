@@ -1,5 +1,4 @@
-import { Target } from './../../../../node_modules/@angular-devkit/architect/src/api.d';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ModalController, NavController, AlertController } from '@ionic/angular';
@@ -13,7 +12,9 @@ import { StorageService } from 'src/app/services/storage/storage.service';
   templateUrl: './mobile-recharge.page.html',
   styleUrls: ['./mobile-recharge.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ...SHARED_IONIC_MODULES]
+  imports: [CommonModule, FormsModule, ...SHARED_IONIC_MODULES],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class MobileRechargePage implements OnInit {
   operators: any[] = [];

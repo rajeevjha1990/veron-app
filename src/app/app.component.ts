@@ -13,6 +13,7 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { App } from '@capacitor/app';
+import { ToastController } from '@ionic/angular';
 
 register();
 
@@ -28,17 +29,25 @@ register();
 })
 export class AppComponent {
   user: User = new User();
+  private lastTimeBackPress = 0;
+  private timePeriodToExit = 2000; // 2 seconds
+
 
   constructor(
     private userServ: UserService,
     private navCtrl: NavController,
     private router: Router,
     private menuCtrl: MenuController,
-    private platform: Platform
+    private platform: Platform,
+    private toastCtrl: ToastController
+
   ) {
     this.userServ.user.subscribe(async u => {
       this.user = u;
     });
+    if (this.user.loggedIn) {
+      this.userServ.updatePendingToFailure()
+    }
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.menuCtrl.close('main-menu');
@@ -53,17 +62,29 @@ export class AppComponent {
     this.initializeApp()
   }
   initializeApp() {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      // if current is '/home' then close the app
-      if (this.router.url === '/home') {
-        App.exitApp(); // close the app
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      const currentUrl = this.router.url;
+
+      // 👇 Replace '/home' with your home route if needed (e.g. '/tabs/home')
+      if (currentUrl === '/home' || currentUrl === '/tabs/home') {
+        const now = new Date().getTime();
+        if (now - this.lastTimeBackPress < this.timePeriodToExit) {
+          App.exitApp(); // Exit the app
+        } else {
+          this.lastTimeBackPress = now;
+          const toast = await this.toastCtrl.create({
+            message: 'Press back again to exit',
+            duration: 1500,
+            position: 'bottom',
+          });
+          await toast.present();
+        }
       } else {
-        window.history.back();
+        // 👇 For all other pages → go to home
+        this.navCtrl.navigateRoot('/home');
       }
     });
   }
-
-
   async logout() {
     await this.userServ.logout();
     const menuOpen: any = document.getElementsByClassName('menu-content-open')

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
@@ -13,7 +13,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './order-history.page.html',
   styleUrls: ['./order-history.page.scss'],
   standalone: true,
-  imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule, RouterLink]
+  imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class OrderHistoryPage implements OnInit {
   consumerrecharges: any = []
@@ -34,7 +36,6 @@ export class OrderHistoryPage implements OnInit {
   }
   async ionViewDidEnter() {
     this.transactions = await this.userServ.transactionHistory();
-    console.log(this.transactions);
   }
 
   downloadFile(url: string) {
