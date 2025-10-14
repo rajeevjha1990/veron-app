@@ -26,7 +26,7 @@ export class ChangePasswordPage implements OnInit {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private router: Router,
-
+    private userServ: UserService
   ) { }
 
   ngOnInit() { }
@@ -62,6 +62,7 @@ export class ChangePasswordPage implements OnInit {
           this.router.navigate(['/change-password']);
           break;
         case 200:
+          await this.userServ.logout();
           this.router.navigate(['/login']);
           break
       }

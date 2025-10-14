@@ -186,17 +186,18 @@ export class LoginPage implements OnInit {
             this.showAlert('Your account is inactive. Please contact support.');
           }
           else if (errMsg.includes('not verified') || resp.status === 'unverified') {
-            //  Case 2: Unverified account
+            // Case 2: Unverified account
             this.router.navigate(['/verification-page']);
           }
+          else if (errMsg.includes('expired') || resp.status === 'expired') {
+            // Case 3: Password expired
+            // this.showAlert(resp.message || 'Your password has expired. Please change your password.');
+            this.router.navigate(['/forgot-password']);
+          }
           else {
+            // Other access denied
             this.showAlert(resp.err || 'Access denied.');
           }
-          break;
-
-
-        default: // Other errors
-          this.showAlert(resp.err || "Login failed. Please try again.");
           break;
       }
 

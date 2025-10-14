@@ -10,7 +10,7 @@
 <ion-content class="ion-padding intro-slides">
 
   <!-- If not logged in -->
-  <ng-container *ngIf="user?.id; else notLoggedIn">
+  <ng-container *ngIf="user?.loggedIn">
     <!-- Balance Section -->
     <ion-grid>
       <ion-row class="ion-justify-content-between ion-align-items-center">
@@ -58,7 +58,7 @@
   </ng-container>
 
   <!-- Not Logged In Template -->
-  <ng-template #notLoggedIn>
+  <ng-template *ngIf="user.loggedIn">
     <ion-text color="medium">
       <h2 class="ion-text-center ion-margin-top">You are not logged in</h2>
     </ion-text>

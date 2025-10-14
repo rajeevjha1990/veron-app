@@ -119,7 +119,7 @@ export class HomePage {
     slidesPerView: 1,
     loop: true,
     autoplay: {
-      delay: 2500,
+      delay: 3000,
       disableOnInteraction: false,
     },
     pagination: {
@@ -144,6 +144,7 @@ export class HomePage {
   async ngOnInit() {
     this.userServ.user.subscribe(async u => {
       this.user = u;
+      console.log(this.user);
       this.canAccess = Number(this.user?.access) === 1;
       if (this.user?.loggedIn) {
         const history = await this.userService.rechargeHistory();
