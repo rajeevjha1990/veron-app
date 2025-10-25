@@ -101,7 +101,7 @@ export class OnboardingPage implements OnInit {
         clickable: true,
       },
       autoplay: {
-        delay: 500,
+        delay: 1000,
         //disableOnInteraction: false,
       },
     });

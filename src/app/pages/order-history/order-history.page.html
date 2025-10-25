@@ -1,101 +1,14 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>order-history</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Transaction History</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <!-- Mobile Recharge History
-  <ion-label style="margin-left: 15px;">Previous Recharge</ion-label>
-  <ion-card *ngFor="let recharge of mobilerechargeDatas.slice(0, 5)">
-    <ion-card-header>
-      <ion-card-title>{{ recharge.mobile }}</ion-card-title>
-      <ion-card-subtitle class="subtitle-row">
-        <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
-        <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
-      </ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-  <ion-grid>
-    <ion-row class="ion-justify-content-end">
-      <ion-col size="auto">
-        <ion-button fill="outline" size="small" shape="round" color="primary" (click)="goToMobileRechargeHistory()">
-          View All
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
-
-  <!-- Electricity Recharge History -->
-  <!-- <ion-label style="margin-left: 15px;">Previous Electricity Bill</ion-label>
-  <ion-card *ngFor="let recharge of electricityDatas.slice(0, 5)">
-    <ion-card-header>
-      <ion-card-title>{{ recharge.consumer_number }}</ion-card-title>
-      <ion-card-subtitle class="subtitle-row">
-        <span>{{ recharge.recharge_time | date: 'd MMM yyyy' }}</span>
-        <ion-label color="primary" class="amount-label">₹{{ recharge.amount }}</ion-label>
-      </ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-  <ion-grid>
-    <ion-row class="ion-justify-content-end">
-      <ion-col size="auto">
-        <ion-button fill="outline" size="small" shape="round" color="primary"
-          (click)="goToElectricityRechargeHistory()">
-          View All
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
-  <!-- <ion-list *ngFor="let order of consumerrecharges">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-          ₹{{ order.amount }} -
-          <ion-label [color]="order.status == '1' ? 'success' : 'danger'"> {{ order.status == '1' ? 'Success' : 'Failed'
-            }}</ion-label>
-          <ion-buttons slot="end">
-            <ion-button fill="clear" color="primary">
-              <ion-icon name="document-outline" slot="icon-only"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-card-title>
-        <ion-card-subtitle>
-          {{ order.recharge_time | date:'medium' }}
-        </ion-card-subtitle>
-
-      </ion-card-header>
-
-      <ion-card-content>
-        <p><strong>Mobile:</strong> {{ order.mobile }}</p>
-        <p><strong>Order ID:</strong> {{ order.order_id }}</p>
-        <p><strong>Mode:</strong> {{ order.mode }}</p>
-        <p><strong>Payment Gateway:</strong> {{ order.pg_type || 'N/A' }}</p>
-      </ion-card-content>
-
-      <ion-item lines="none">
-        <ion-button fill="clear" slot="end" size="medium">
-          <a [href]="veronHttp.BASE_URL + 'api/auth/receiptPDF/' + order.order_id+'/'+order.consumer_id"
-            target="_blank">
-            <ion-icon name="document-outline" slot="icon-only"></ion-icon>
-          </a>
-        </ion-button>
-      </ion-item>
-    </ion-card>
-  </ion-list> -->
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Transaction History</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
   <ion-card *ngFor="let transaction of transactions">
     <ion-card-header>
       <ion-card-title>
-        <span>
-          Date : {{ transaction.recharge_time | date: 'medium' }}
-        </span>
+        Date: {{ transaction.recharge_time | date: 'medium' }}
       </ion-card-title>
       <ion-card-subtitle>
         <p><strong>Order ID:</strong> {{ transaction.order_id }}</p>
@@ -109,14 +22,12 @@
       <ion-item lines="none">
         <ion-label></ion-label>
         <ion-badge [color]="
-    (transaction.status | lowercase) === 'success' ? 'success' :
-    (transaction.status | lowercase) === 'failure' ? 'danger' : 'medium'
-  ">
+          (transaction.status | lowercase) === 'success' ? 'success' :
+          (transaction.status | lowercase) === 'failure' ? 'danger' : 'medium'
+        ">
           {{ transaction.status }}
         </ion-badge>
-
       </ion-item>
     </ion-card-content>
   </ion-card>
-
 </ion-content>

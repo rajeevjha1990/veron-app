@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 import { UserService } from 'src/app/services/user/user.service';
+import { Device } from '@capacitor/device';
 
 @Component({
   selector: 'app-order-summary',
@@ -54,10 +55,17 @@ export class OrderSummaryPage implements OnInit {
           text: 'Yes, Pay Now',
           handler: async () => {
             this.orderData.payMode = mode;
+            const info = await Device.getInfo();
+            this.orderData.model = info.model,
+              this.orderData.platform = info.platform,
+              this.orderData.osVersion = info.osVersion,
+              this.orderData.manufacturer = info.manufacturer,
+              this.orderData.isVirtual = info.isVirtual
+
             const loader = await this.presentBubbleLoader();
 
             try {
-              const resp = await this.userServ.getLastReschargeOrderByuser(this.orderData, false);
+              const resp = await this.userServ.reschargeOrderByuser(this.orderData, false);
               this.orderId = resp.order_id
               await loader.dismiss();
               const mainStatus = resp.status;

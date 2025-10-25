@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
@@ -15,39 +15,35 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class OrderHistoryPage implements OnInit {
-  consumerrecharges: any = []
-  mobilerechargeDatas: any = []
-  electricityDatas: any = [];
+  transactions: any[] = [];
   user: User = new User();
-  transactions: any = [];
+
   constructor(
     private userServ: UserService,
-    public veronHttp: RajeevhttpService,
+    private veronHttp: RajeevhttpService,
     private router: NavController,
+    private cdr: ChangeDetectorRef
   ) {
-    this.userServ.user.subscribe(async u => {
+    this.userServ.user.subscribe(u => {
       this.user = u;
     });
   }
-  ngOnInit() {
-  }
+
+  ngOnInit() { }
+
   async ionViewDidEnter() {
-    this.transactions = await this.userServ.transactionHistory();
+    const resp = await this.userServ.transactionHistory();
+    this.transactions = resp?.data || resp; // handle both formats
+    console.log('Transactions:', this.transactions);
+    this.cdr.markForCheck();
   }
 
   downloadFile(url: string) {
     window.open(url, '_blank');
   }
-  goToMobileRechargeHistory() {
-    this.router.navigateForward(['/all-mobilecharges']);
-  }
 
-  goToElectricityRechargeHistory() {
-    this.router.navigateForward(['/all-electriccharges']);
-  }
   goToPage(route: string) {
     this.router.navigateForward([route]);
   }

@@ -9,7 +9,7 @@
 
 <ion-content class="ion-padding intro-slides">
 
-  <!-- If not logged in -->
+  <!-- Logged In -->
   <ng-container *ngIf="user?.loggedIn">
     <!-- Balance Section -->
     <ion-grid>
@@ -54,15 +54,16 @@
           </ion-card>
         </div>
       </div>
+      <div class="swiper-pagination"></div>
     </div>
   </ng-container>
 
-  <!-- Not Logged In Template -->
-  <ng-template *ngIf="user.loggedIn">
+  <!-- Not Logged In -->
+  <ng-container *ngIf="!user?.loggedIn">
     <ion-text color="medium">
       <h2 class="ion-text-center ion-margin-top">You are not logged in</h2>
     </ion-text>
     <ion-button expand="block" color="primary" routerLink="/login">Login</ion-button>
-  </ng-template>
+  </ng-container>
 
 </ion-content>
