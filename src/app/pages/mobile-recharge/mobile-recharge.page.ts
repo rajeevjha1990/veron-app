@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ModalController, NavController, AlertController } from '@ionic/angular';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
 import { PubService } from 'src/app/services/pub/pub.service';
@@ -32,7 +32,9 @@ export class MobileRechargePage implements OnInit {
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private storServ: StorageService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private cd: ChangeDetectorRef
+
   ) { }
 
   async ngOnInit() {
@@ -45,13 +47,15 @@ export class MobileRechargePage implements OnInit {
       component: StatefilterPage
     });
     await modal.present();
-
     const { data } = await modal.onDidDismiss();
     if (data?.state) {
       this.formData.circle = data.state.state_name;
       this.formData.state_id = data.state.state_code;
+      this.cd.detectChanges(); // 👈 Force UI update
+
     }
   }
+
 
   async submitSection() {
     const mobile = String(this.formData.mobile || '').trim();

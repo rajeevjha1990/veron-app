@@ -34,7 +34,7 @@ export class StatefilterPage implements OnInit {
     );
   }
 
-  selectState(state: any) {
-    this.modalCtrl.dismiss({ state });
+  async selectState(state: any) {
+    await this.modalCtrl.dismiss({ state });
   }
 }
