@@ -7,7 +7,7 @@
 <ion-content class="intro-slides" fullscreen>
   <div class="ads-swiper swiper mySwiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let ad of slides">
+      <div class="swiper-slide" *ngFor="let ad of slides; trackBy: trackBySlideId">
         <ion-card class="ad-card">
           <img [src]="ad.image" alt="Ad" />
           <ion-card-header>

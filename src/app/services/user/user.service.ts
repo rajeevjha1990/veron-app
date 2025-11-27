@@ -308,4 +308,13 @@ export class UserService {
     const apiResp = await this.veronHttp.post(url, {});
     return apiResp;
   }
+  async getSlides() {
+    const url = Constants.USER_API_PATH + 'getSlides';
+    const respData = await this.veronHttp.post(url, {});
+    if (respData) {
+      return respData.slides;
+    } else {
+      return []
+    }
+  }
 }
